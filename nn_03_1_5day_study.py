@@ -1,9 +1,11 @@
-import datetime
+from datetime import datetime, timedelta
 from icalendar import Calendar, Event
 
 
 
-def create_study_plan(prioritized_assignments, start_date=datetime.datetime.now()):
+def create_study_plan(prioritized_assignments, start_date=None):
+    if start_date is None:
+        start_date = datetime.now()
     
     chunks = ["A", "B", "C", "D"]
 
@@ -20,30 +22,27 @@ def create_study_plan(prioritized_assignments, start_date=datetime.datetime.now(
     cal.add('prodid', '-//My Study Plan//example.com//')
     cal.add('version', '2.0')
 
-
     high_priority_test = next((a for a in prioritized_assignments if a['type'] == 'final'), None)
     if high_priority_test:
         event_name = high_priority_test['description']
-        event_due_date = datetime.datetime.strptime(high_priority_test['due_date'], '%Y-%m-%d')
-        study_plan_start = event_due_date - datetime.timedelta(days=5)
+        # Use 'due_date' directly since it's already a datetime object
+        event_due_date = high_priority_test['due_date']
+        study_plan_start = event_due_date - timedelta(days=5)
 
         for day, activities in enumerate(study_plan, start=1):
             day_name, tasks = activities
 
-            day_start = study_plan_start + datetime.timedelta(days=day - 1)
+            day_start = study_plan_start + timedelta(days=day - 1)
             for task_name, duration_mins in tasks:
                 event = Event()
                 event.add('summary', f'{day_name}: {task_name}')
                 event.add('dtstart', day_start)
-                event.add('dtend', day_start + datetime.timedelta(minutes=duration_mins))
+                event.add('dtend', day_start + timedelta(minutes=duration_mins))
                 cal.add_component(event)
 
 
     with open('study_plan.ics', 'wb') as f:
         f.write(cal.to_ical())
-
-
-
 
 
 

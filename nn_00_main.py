@@ -50,8 +50,8 @@ def main():
     prioritized_assignments = prioritize_assignments(assignments_with_impact)
 
     # nn_03_1_5day_study.py
-    from nn_03_1_5day_study import create_study_plans_for_tests
-    create_study_plans_for_tests(prioritized_assignments)
+    from nn_03_1_5day_study import create_study_plan
+    create_study_plan(prioritized_assignments)
 
     # nn_04_time_blocker.py
     personal_schedule = [

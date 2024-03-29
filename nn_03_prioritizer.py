@@ -13,7 +13,8 @@ def calculate_impact(assignments, grading_info):
 def prioritize_assignments(assignments):
     today = datetime.today().date()
     assignments_flat = [item for sublist in assignments.values() for subsublist in sublist.values() for item in subsublist]
-    assignments_flat.sort(key=lambda x: (datetime.strptime(x['due_date'], '%Y-%m-%d').date() - today, -x.get('impact', 0)))
+    # Check if 'due_date' is a datetime object and use it directly
+    assignments_flat.sort(key=lambda x: (x['due_date'].date() - today, -x.get('impact', 0)))
     return assignments_flat
 
 # impacts on final grade for each assignment type
