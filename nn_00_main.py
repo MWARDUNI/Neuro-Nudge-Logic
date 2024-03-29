@@ -44,7 +44,8 @@ def main():
 
     # nn_03_prioritizer.py
     from nn_03_prioritizer import calculate_impact, prioritize_assignments
-    assignments_with_impact = calculate_impact(categorized_assignments, grading_info)
+    # assignments_with_impact = calculate_impact(categorized_assignments, grading_info)
+    assignments_with_impact = calculate_impact(categorized_assignments, grade_impact_individually)
 
     # nn_03_prioritizer.py
     prioritized_assignments = prioritize_assignments(assignments_with_impact)
