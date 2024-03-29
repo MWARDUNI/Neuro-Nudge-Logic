@@ -1,33 +1,44 @@
 
-# from nn_01_parser import parse_assignments
-# from nn_02_categorizer import categorize_assignments
-# from nn_03_prioritizer import calculate_impact, prioritize_assignments
-# from nn_03_1_5day_study import create_study_plans_for_tests
-# from nn_04_time_blocker import find_time_blocks
-
-from nn_01_parser import *
-from nn_02_categorizer import *
-from nn_03_prioritizer import *
-from nn_03_1_5day_study import *
-from nn_04_time_blocker import *
-
 
 def categorize_assignments(assignments):
+    if not assignments:  # Check if the list is empty
+        return {}
+    
+    if not isinstance(assignments, list) or not all(isinstance(assignment, dict) for assignment in assignments):
+        raise ValueError("assignments must be a list of dictionaries")
+    
     categorized = {}
-
     for assignment in assignments:
-        class_name = assignment['class']
-        assignment_type = assignment['type']
-
+        class_name = assignment.get('class', 'Unknown Class')
+        assignment_type = assignment.get('type', 'Unknown Type')
+        
         if class_name not in categorized:
             categorized[class_name] = {}
-
+        
         if assignment_type not in categorized[class_name]:
             categorized[class_name][assignment_type] = []
-
+        
         categorized[class_name][assignment_type].append(assignment)
 
     return categorized
+
+
+# def categorize_assignments(assignments):
+#     categorized = {}
+
+#     for assignment in assignments:
+#         class_name = assignment['class']
+#         assignment_type = assignment['type']
+
+#         if class_name not in categorized:
+#             categorized[class_name] = {}
+
+#         if assignment_type not in categorized[class_name]:
+#             categorized[class_name][assignment_type] = []
+
+#         categorized[class_name][assignment_type].append(assignment)
+
+#     return categorized
 
 def add_grading_criteria(categorized_assignments, grading_info):
 

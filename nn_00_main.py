@@ -1,23 +1,22 @@
-
-from nn_01_parser import parse_assignments
-from nn_02_categorizer import categorize_assignments
-from nn_03_prioritizer import calculate_impact, prioritize_assignments
-from nn_03_1_5day_study import create_study_plans_for_tests
-from nn_04_time_blocker import find_time_blocks
-
-from nn_01_parser import *
-from nn_02_categorizer import *
-from nn_03_prioritizer import *
-from nn_03_1_5day_study import *
-from nn_04_time_blocker import *
+from icalendar import Calendar, Event
+import datetime
+from dateutil.rrule import *
+from dateutil.parser import parse
+import pytz
 
 
 def main():
     # nn_01_parser.py
-    assignments = parse_assignments('testcal.ics')
+    from nn_01_parser import parse_ics
+    events, assignments = parse_ics('testcal.ics')
 
-    # nn_02_categorizer.py
-    categorized_assignments = categorize_assignments(assignments)
+    if all(isinstance(assignment, dict) for assignment in assignments):
+        from nn_02_categorizer import categorize_assignments
+        categorized_assignments = categorize_assignments(assignments)
+    else:
+        print("Error: One or more assignments are not in dictionary format.")
+
+
 
     # Impacts on final grade for TOTAL assignment type
     grading_info = {
@@ -44,12 +43,14 @@ def main():
     }
 
     # nn_03_prioritizer.py
+    from nn_03_prioritizer import calculate_impact, prioritize_assignments
     assignments_with_impact = calculate_impact(categorized_assignments, grading_info)
 
     # nn_03_prioritizer.py
     prioritized_assignments = prioritize_assignments(assignments_with_impact)
 
     # nn_03_1_5day_study.py
+    from nn_03_1_5day_study import create_study_plans_for_tests
     create_study_plans_for_tests(prioritized_assignments)
 
     # nn_04_time_blocker.py
@@ -60,9 +61,9 @@ def main():
 
     ]
 
-    suitable_assignments = find_time_blocks(prioritized_assignments, personal_schedule)
+    # suitable_assignments = find_time_blocks(prioritized_assignments, personal_schedule)
 
-    print(suitable_assignments)
+    # print(suitable_assignments)
 
 if __name__ == '__main__':
     main()

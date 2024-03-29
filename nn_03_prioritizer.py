@@ -2,19 +2,6 @@
 from datetime import datetime
 
 
-# from nn_01_parser import parse_assignments
-from nn_02_categorizer import categorize_assignments
-# from nn_03_prioritizer import calculate_impact, prioritize_assignments
-# from nn_03_1_5day_study import create_study_plans_for_tests
-# from nn_04_time_blocker import find_time_blocks
-
-from nn_01_parser import *
-from nn_02_categorizer import *
-from nn_03_prioritizer import *
-from nn_03_1_5day_study import *
-from nn_04_time_blocker import *
-
-
 def calculate_impact(assignments, grading_info):
     for class_name, types in assignments.items():
         for assignment_type, assignment_list in types.items():
@@ -41,12 +28,12 @@ grading_info = {
     'CSCI 4287': {'homework': 20, 'project': 30, 'final': 50}
 }
 
+# from nn_02_categorizer import categorize_assignments, add_grading_criteria
+# assignments_with_impact = calculate_impact(categorized_with_grading, grading_info)
 
-assignments_with_impact = calculate_impact(categorize_assignments.categorized_with_grading, grading_info)
 
+# prioritized_assignments = prioritize_assignments(assignments_with_impact)
 
-prioritized_assignments = prioritize_assignments(assignments_with_impact)
-
-print(prioritized_assignments)
+# print(prioritized_assignments)
 
 
