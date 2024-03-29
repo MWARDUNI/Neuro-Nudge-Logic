@@ -25,7 +25,6 @@ def create_study_plan(prioritized_assignments, start_date=None):
     high_priority_test = next((a for a in prioritized_assignments if a['type'] == 'final'), None)
     if high_priority_test:
         event_name = high_priority_test['description']
-        # Use 'due_date' directly since it's already a datetime object
         event_due_date = high_priority_test['due_date']
         study_plan_start = event_due_date - timedelta(days=5)
 
