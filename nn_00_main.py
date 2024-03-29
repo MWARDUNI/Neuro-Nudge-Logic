@@ -14,7 +14,7 @@ from nn_04_time_blocker import *
 
 def main():
     # nn_01_parser.py
-    assignments = parse_assignments('assignments_data_source.txt')  # Example file name
+    assignments = parse_assignments('testcal.ics')
 
     # nn_02_categorizer.py
     categorized_assignments = categorize_assignments(assignments)
