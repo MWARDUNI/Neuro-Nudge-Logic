@@ -29,9 +29,20 @@ grading_info = {
     'CSCI 4287': {'homework': 20, 'project': 30, 'final': 50}
 }
 
-# from nn_02_categorizer import categorize_assignments, add_grading_criteria
+# Impacts on final grade for EACH assignment type
+grade_impact_individually = {
+    # Theory
+    'CSCI 4034': {'homework': 11, 'midterm': 33, 'final': 33}, # 3 homeworks 11% each
+    # Network Programming
+    'CSCI 3762': {'lab': 10}, # 10 labs 10% each (NEED TO ADJUST THE CALENDAR FILE)
+    # Security
+    'CSCI 4743': {'homework': 6, 'quiz': 10, 'midterm': 20, 'final': 20}, # 5 homeworks 6% each, 3 quizzes 10% each
+    # Embedded Systems
+    'CSCI 4287': {'labs': 5, 'midterm': 20, 'final': 20, 'project': 40} # 4 labs 5% each, midterm 20%, final 20%, project 40%
+}
+from nn_02_categorizer import categorize_assignments, add_grading_criteria
 # assignments_with_impact = calculate_impact(categorized_with_grading, grading_info)
-
+# assignments_with_impact = calculate_impact(categorize_assignments, grade_impact_individually)
 
 # prioritized_assignments = prioritize_assignments(assignments_with_impact)
 

@@ -17,7 +17,6 @@ def main():
         print("Error: One or more assignments are not in dictionary format.")
 
 
-
     # Impacts on final grade for TOTAL assignment type
     grading_info = {
         # Theory
@@ -49,6 +48,10 @@ def main():
 
     # nn_03_prioritizer.py
     prioritized_assignments = prioritize_assignments(assignments_with_impact)
+
+    print("============================================================\n")
+    print("Prioritized Assignments:\n")
+    print(prioritized_assignments)
 
     # nn_03_1_5day_study.py
     from nn_03_1_5day_study import create_study_plan

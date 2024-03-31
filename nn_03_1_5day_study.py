@@ -22,6 +22,9 @@ def create_study_plan(prioritized_assignments, start_date=None):
     cal.add('prodid', '-//My Study Plan//example.com//')
     cal.add('version', '2.0')
 
+    print("\n")
+    print("============================================================\n")
+    print("STUDY PLAN:\n")
     high_priority_test = next((a for a in prioritized_assignments if a['type'] == 'final'), None)
     if high_priority_test:
         event_name = high_priority_test['description']
@@ -38,6 +41,12 @@ def create_study_plan(prioritized_assignments, start_date=None):
                 event.add('dtstart', day_start)
                 event.add('dtend', day_start + timedelta(minutes=duration_mins))
                 cal.add_component(event)
+
+
+
+            print(f"{day_name}: {tasks} on {day_start} to {day_start + timedelta(days=1)}\n")
+
+
 
 
     with open('study_plan.ics', 'wb') as f:
