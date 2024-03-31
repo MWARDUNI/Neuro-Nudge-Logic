@@ -8,7 +8,8 @@ import pytz
 def main():
     # nn_01_parser.py
     from nn_01_parser import parse_ics
-    events, assignments = parse_ics('testcal.ics')
+    # events, assignments = parse_ics('testcal.ics')
+    events, assignments = parse_ics('fluttercal.ics')
 
     if all(isinstance(assignment, dict) for assignment in assignments):
         from nn_02_categorizer import categorize_assignments
