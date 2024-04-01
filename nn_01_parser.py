@@ -42,7 +42,7 @@ def parse_ics(file_path):
             if component.get('rrule'):
                 event['recurrence'] = str(component.get('rrule'))
             else:
-                keywords = ['homework', 'project', 'quiz', 'midterm', 'final', 'lab', 'HW', ]
+                keywords = ['homework', 'project', 'quiz', 'midterm', 'final', 'lab', 'hw']
                 if any(keyword in event['summary'].lower() for keyword in keywords) or \
                    any(keyword in event['description'].lower() for keyword in keywords):
                     assignment_type = next((keyword for keyword in keywords if keyword in event['summary'].lower()), 'unknown')
