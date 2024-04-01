@@ -1,8 +1,6 @@
 from datetime import datetime, timedelta
 from icalendar import Calendar, Event
 
-
-
 def create_study_plan(prioritized_assignments, start_date=None):
     if start_date is None:
         start_date = datetime.now()

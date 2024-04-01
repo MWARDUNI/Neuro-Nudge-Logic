@@ -2,6 +2,7 @@ from icalendar import Calendar
 from dateutil.rrule import *
 from dateutil.parser import parse
 import pytz
+import copy
 
 
 
@@ -30,7 +31,7 @@ def parse_ics(file_path):
                 'trigger': component.get('trigger'),                                            # trigger alarm
                 'action': str(component.get('action', 'DISPLAY')),                              # action for alarm
                 'related-to': str(component.get('related-to', 'TODO: via UID')),                # related to via uid                                              # related event via UID
-
+                'impact': component.get('impact', 0),                                           # impact on final grade
             }
 
             # if 'dtstart' or 'dtend' is None: TODO: adjust ics 
@@ -48,9 +49,9 @@ def parse_ics(file_path):
                     
                     # assignments are VTODO components, not VEVENT
                     assignment = {
+                        'class': event['summary'].split('-')[0].strip() if '-' in event['summary'] else 'Unknown',
                         'due': event['end'],
                         'type': assignment_type,
-                        'class': event['summary'].split('-')[0].strip() if '-' in event['summary'] else 'Unknown',
                         'description': event['description'],
                         'status': str(component.get('status', 'NEEDS-ACTION')), # VTODO: 'NEEDS-ACTION' [default], 'COMPLETED', 'IN-PROCESS', 'CANCELLED'
                         'priority': str(component.get('priority', '0')), # VTODO: '0' [default], '1' = HIGH, '9' = LOW
@@ -60,6 +61,7 @@ def parse_ics(file_path):
                         'action': event['action'],
                         'category': event['category'],
                         'related-to': event['related-to'], # related event
+                        'impact': event['impact'], # default impact value
                         
                     }
                     assignments.append(assignment)
@@ -83,6 +85,14 @@ def parse_ics(file_path):
 
 
 events, assignments = parse_ics('testcal.ics')
+
+# make copies of events and assignments data by value.
+copy_events = copy.deepcopy(events)
+
+copy_assignments = copy.deepcopy(assignments)
+
+
+
 print("\n")
 print("============================================================\n")
 print("Events:\n")
@@ -91,6 +101,7 @@ for event in events:
     print(event)
     print("\n") 
 
+
 print("\n")
 print("============================================================\n")
 print("Assignments:\n")
@@ -98,4 +109,5 @@ print("\tThese are tasks/todos with due dates.\n")
 for assignment in assignments:
     print(assignment)
     print("\n") 
+
 
