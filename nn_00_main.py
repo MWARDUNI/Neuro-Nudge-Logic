@@ -19,18 +19,6 @@ def main():
         print("Error: One or more assignments are not in dictionary format.")
 
 
-    # # Impacts on final grade for TOTAL assignment type
-    # grading_info = {
-    #     # Theory
-    #     'CSCI 4034': {'homework': 33, 'midterm': 33, 'final': 33}, # 3 homeworks 11% each
-    #     # Network Programming
-    #     'CSCI 3762': {'lab': 100}, # 10 labs 10% each
-    #     # Embedded Systems
-    #     'CSCI 4287': {'homework': 30, 'quiz': 30, 'final': 40}, # 5 homeworks 6% each, 3 quizzes 10% each, final 40%
-    #     # Security
-    #     'CSCI 4743': {'lab': 25, 'project': 35, 'final': 40} # 
-    # }
-
     # Impacts on final grade for EACH assignment type
     grade_impact_key = {
         # Theory
