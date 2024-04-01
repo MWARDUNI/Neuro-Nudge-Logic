@@ -1,3 +1,48 @@
+from datetime import datetime, timezone, timedelta
+from icalendar import Calendar, Event, Alarm
+from dateutil.rrule import *
+from dateutil.parser import parse
+
+
+def parse_timeblock_ics():
+
+    with open('nn_timeblocks.ics', 'rb') as f:
+        tblockscal = Calendar.from_ical(f.read())
+
+    timeblocks = []
+
+    for block in tblockscal.walk():
+        if block.name == "VEVENT":
+            timeblock = {
+                'summary': str(block.get('summary', 'No summary provided')),
+                'start': block.get('dtstart').dt if block.get('dtstart') else None,
+                'end': block.get('dtend').dt if block.get('dtend') else None,
+                'location': str(block.get('location', 'No location provided')),
+                'description': str(block.get('description', 'No description provided')),
+                'category': str(block.get('category', 'No category provided')),
+                'status': str(block.get('status', 'No status provided')),
+                'uid': str(block.get('uid', 'No UID provided')),
+                'alarm': block.get('alarm'),
+                'trigger': block.get('trigger'),
+                'action': str(block.get('action', 'DISPLAY')),
+                'related-to': str(block.get('related-to', 'TODO: via UID')),
+                'impact': block.get('impact', 0),
+            }
+
+            if timeblock['start'] is None or timeblock['end'] is None:
+                print(f"{timeblock['summary']} is missing essential datetime information. Skipping.")
+                continue
+
+            if block.get('rrule'):
+                timeblock['recurrence'] = str(block.get('rrule'))
+            else:
+                timeblocks.append(timeblock)
+
+
+
+
+
+
 # def find_available_time_blocks(ical_data, search_start, search_end, min_duration_hours=1):
 #     """
 #     Find available time blocks within the specified search period.

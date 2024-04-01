@@ -9,8 +9,8 @@ import copy
 def main():
     # nn_01_parser.py
     from nn_01_parser import parse_ics
-    events, assignments = parse_ics('testcal.ics')
-    # events, assignments = parse_ics('fluttercal.ics')
+    events, assignments = parse_ics('nn_all_events.ics')
+
 
     if all(isinstance(assignment, dict) for assignment in assignments):
         from nn_02_categorizer import categorize_assignments
@@ -78,10 +78,7 @@ def main():
 
     # nn_04_time_blocker.py
     # this will eventually be the unavailable time slots for the user to study
-    personal_schedule = [
-        ('2023-04-10', '2023-04-11'),
-        ('2023-04-15', '2023-04-16'),
-    ]
+    personal_schedule = []
 
 
 
