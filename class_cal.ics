@@ -1,0 +1,863 @@
+BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Classes
+X-WR-TIMEZONE:America/Denver
+X-WR-CALDESC:Spring Semester Course Schedule
+BEGIN:VTIMEZONE
+TZID:America/Denver
+X-LIC-LOCATION:America/Denver
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0600
+TZNAME:MDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0700
+TZNAME:MST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART:20240308T030000Z
+DTEND:20240309T033000Z
+DTSTAMP:20240404T020403Z
+UID:3n85pladebrn6j6lidqnvc0qj3@google.com
+CREATED:20240312T211348Z
+DESCRIPTION:lab 5 due
+LAST-MODIFIED:20240401T213451Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 5 DUE
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240508T200000Z
+DTEND:20240508T211500Z
+DTSTAMP:20240404T020403Z
+UID:59c2nip5m1kbe0d4mhtseu3140@google.com
+CREATED:20240401T214447Z
+DESCRIPTION:Final for embedded systems
+LAST-MODIFIED:20240401T214447Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - Final
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240506T153000Z
+DTEND:20240506T164500Z
+DTSTAMP:20240404T020403Z
+UID:5dlu7o9g070239kl055jhq8olf@google.com
+CREATED:20240322T172403Z
+DESCRIPTION:Theory of computation Final - Test
+LAST-MODIFIED:20240401T214531Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - Final
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/Denver:20240115T140000
+DTEND;TZID=America/Denver:20240115T151500
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20240510T055959Z;BYDAY=MO,WE
+DTSTAMP:20240404T020403Z
+UID:1hjt21vpaq149h4djgmcheidre@google.com
+CREATED:20240226T203918Z
+DESCRIPTION:<br>CSCI 4287 - Embedded Systems Programming:<br><br><p>Embedde
+ d systems programming involves the development of software for embedded sys
+ tems\, which are specialized computing systems designed for specific tasks 
+ rather than general-purpose computing. These systems are embedded as part o
+ f a larger device\, system\, or installation and typically have stringent r
+ equirements for size\, power consumption\, and reliability. The key charact
+ eristics and components of embedded systems programming include:</p><ol><li
+ ><p><strong>Microcontrollers and Microprocessors</strong>: The core of most
+  embedded systems\, these integrated circuits execute the software programm
+ ed into them. Microcontrollers include memory and peripherals on the same c
+ hip\, making them ideal for direct control tasks.</p></li><li><p><strong>Re
+ al-Time Operating Systems (RTOS)</strong>: Many embedded systems require re
+ al-time performance\, where tasks must be completed within strict time cons
+ traints. An RTOS manages the hardware resources and scheduling to meet thes
+ e time requirements.</p></li><li><p><strong>Programming Languages</strong>:
+  C and C++ are the most commonly used programming languages for embedded sy
+ stems due to their efficiency and control over system resources. Assembly l
+ anguage is also used for very low-level programming\, and newer languages l
+ ike Rust are gaining traction for their safety features.</p></li><li><p><st
+ rong>Input/Output Interfaces</strong>: Embedded systems often interact with
+  the external world through sensors and actuators. Programming these interf
+ aces involves managing digital and analog inputs/outputs\, communication pr
+ otocols (e.g.\, SPI\, I2C\, UART)\, and sometimes complex signal processing
+ .</p></li><li><p><strong>Power Management</strong>: Many embedded systems a
+ re battery-powered and require careful management of power consumption. Pro
+ gramming for power efficiency involves techniques such as sleep modes\, dyn
+ amic power scaling\, and efficient use of peripherals.</p></li><li><p><stro
+ ng>Development Environments and Tools</strong>: Integrated Development Envi
+ ronments (IDEs) and tools specific to the target hardware are used for codi
+ ng\, debugging\, and testing. These tools often include simulators\, emulat
+ ors\, and real-time debugging features.</p></li><li><p><strong>Security</st
+ rong>: With the rise of connected devices\, security has become a critical 
+ aspect of embedded systems programming. This includes implementing secure b
+ oot\, encryption\, secure communication protocols\, and regular security up
+ dates.</p></li><li><p><strong>Testing and Debugging</strong>: Due to the ha
+ rdware-software integration and the specific applications of embedded syste
+ ms\, testing and debugging can be complex. This often involves hardware-in-
+ the-loop simulations\, unit testing\, and extensive field testing.</p></li>
+ </ol><br><table><thead><tr><th><strong><b>Item</b></strong></th><th><strong
+ ><b>Weight</b></strong></th></tr></thead><tbody><tr><td>Midterm Exam</td><t
+ d>20%</td></tr><tr><td>Final Exam</td><td>20%</td></tr><tr><td>HW / Lab Ass
+ ignments</td><td>20%</td></tr><tr><td>Class Project</td><td>40%<br></td></t
+ r></tbody></table>    <br><span>Letter Grade Distribution</span><br><table>
+ <thead><tr><th><strong><b>Range</b></strong></th><th><strong><b>Letter Grad
+ e</b></strong></th></tr></thead><tbody><tr><td>Total Score ≥ 90%</td><td>  
+   A</td></tr><tr><td>90% &gt\; Total Score ≥ 85%</td><td>    B+</td></tr><t
+ r><td>85% &gt\; Total Score ≥ 80%</td><td>    B</td></tr><tr><td>80% &gt\; 
+ Total Score ≥ 75%</td><td>    C+</td></tr><tr><td>75% &gt\; Total Score ≥ 7
+ 0%</td><td>    C</td></tr><tr><td>70% &gt\; Total Score ≥ 65%</td><td>    D
+ +</td></tr><tr><td>65% &gt\; Total Score ≥ 60%</td><td>    D</td></tr><tr><
+ td>60% &gt\; Total Score</td><td>    F</td></tr></tbody></table>
+LAST-MODIFIED:20240401T215516Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - Embedded Systems Programming
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/Denver:20240116T103000
+DTEND;TZID=America/Denver:20240116T114500
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20240517T055959Z;BYDAY=TU,TH
+DTSTAMP:20240404T020403Z
+UID:03u4osgcd8uj9benaejtaieafl@google.com
+CREATED:20240226T204507Z
+DESCRIPTION:Network Programming<br><br><p>A course in Network Programming i
+ s designed to equip students with the skills and knowledge needed to develo
+ p software that communicates over computer networks. This field blends conc
+ epts from computer networking\, programming\, and systems engineering to en
+ able the creation of applications that operate within distributed environme
+ nts. Here’s a breakdown of the key components and topics a Network Programm
+ ing course might cover:</p><ol><li><p><strong>Networking Fundamentals</stro
+ ng>: Understanding the basic principles of computer networks\, including th
+ e OSI and TCP/IP models\, network topologies\, and key protocols such as TC
+ P\, UDP\, IP\, and HTTP. This foundation is crucial for understanding how d
+ ata moves across the network.</p></li><li><p><strong>Socket Programming</st
+ rong>: At the heart of network programming\, socket programming involves cr
+ eating endpoints (sockets) for communication between devices. The course wi
+ ll likely cover how to use sockets in various programming languages\, such 
+ as C/C++\, Python\, or Java\, and the differences between TCP sockets (stre
+ am-based) and UDP sockets (datagram-based).</p></li><li><p><strong>Client-S
+ erver Model</strong>: Learning how to design and implement the client-serve
+ r architecture\, where servers provide resources or services and clients ac
+ cess them. This includes understanding stateful vs. stateless design\, mult
+ i-threaded servers\, and handling multiple clients.</p></li><li><p><strong>
+ Concurrent Programming</strong>: Since network applications often handle mu
+ ltiple connections simultaneously\, an understanding of concurrency is esse
+ ntial. This might involve threads\, processes\, asynchronous I/O\, or event
+ -driven programming\, depending on the technology stack used.</p></li><li><
+ p><strong>Network Security</strong>: An overview of the principles of netwo
+ rk security\, including encryption\, authentication\, and secure communicat
+ ion protocols (e.g.\, SSL/TLS). Security practices are vital for protecting
+  data in transit and preventing unauthorized access.</p></li><li><p><strong
+ >Web Services and APIs</strong>: Introduction to web services and Applicati
+ on Programming Interfaces (APIs)\, including RESTful services and SOAP. Thi
+ s section covers how to design\, implement\, and consume web services\, whi
+ ch are critical for modern web applications.</p></li><li><p><strong>Network
+  Application Protocols</strong>: Detailed exploration of application layer 
+ protocols such as HTTP\, FTP\, SMTP\, and DNS. Understanding these protocol
+ s is essential for developing applications that perform web browsing\, file
+  transfer\, email\, and domain name resolution.</p></li><li><p><strong>Adva
+ nced Topics</strong>: Depending on the course’s depth\, it might cover more
+  advanced topics like network programming with frameworks (e.g.\, .NET or N
+ ode.js)\, peer-to-peer systems\, network simulation tools\, or specific pro
+ tocols for IoT devices.</p></li><li><p><strong>Project Work</strong>: Pract
+ ical\, hands-on projects are a key component\, allowing students to apply t
+ heoretical knowledge to real-world scenarios. Projects might involve develo
+ ping a chat application\, a web server\, a file transfer application\, or i
+ ntegrating with third-party web services.</p></li></ol><br>10 labs worth 10
+ % each<br><br><table><caption><br></caption><caption><br></caption><caption
+ >Letter Grade Distribution</caption><thead><tr><th><strong><b>Range</b></st
+ rong></th><th><strong><b>Letter Grade</b></strong></th></tr></thead><tbody>
+ <tr><td>Total Score ≥ 90%</td><td>A</td></tr><tr><td>90% &gt\; Total Score 
+ ≥ 85%</td><td>B+</td></tr><tr><td>85% &gt\; Total Score ≥ 80%</td><td>B</td
+ ></tr><tr><td>80% &gt\; Total Score ≥ 75%</td><td>C+</td></tr><tr><td>75% &
+ gt\; Total Score ≥ 70%</td><td>C</td></tr><tr><td>70% &gt\; Total Score ≥ 6
+ 5%</td><td>D+</td></tr><tr><td>65% &gt\; Total Score ≥ 60%</td><td>D</td></
+ tr><tr><td>60% &gt\; Total Score</td><td>F</td></tr></tbody></table>
+LAST-MODIFIED:20240401T215721Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - NETWORK
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/Denver:20240116T130000
+DTEND;TZID=America/Denver:20240116T141500
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20240511T055959Z;BYDAY=TU,TH
+DTSTAMP:20240404T020403Z
+UID:4tr53n0phm1ofmv9overtv0vcc@google.com
+CREATED:20240226T204729Z
+DESCRIPTION:<p>Cybersecurity and Infrastructure Defense focuses on equippin
+ g students with the knowledge and skills necessary to protect computer syst
+ ems\, networks\, and data from cyber threats and vulnerabilities. It encomp
+ asses a broad range of topics that combine principles from information secu
+ rity\, network security\, system administration\, and risk management. The 
+ course aims to prepare students for roles in cybersecurity\, where they can
+  design\, implement\, and manage security measures to safeguard information
+  technology (IT) infrastructure. Here’s an overview of the core components 
+ and topics typically covered in such a course:</p><ol><li><p><strong>Fundam
+ entals of Information Security</strong>: Introduction to the foundational c
+ oncepts of cybersecurity\, including the CIA triad (confidentiality\, integ
+ rity\, availability)\, types of security threats\, vulnerabilities\, and th
+ e principles of secure design.</p></li><li><p><strong>Network Security</str
+ ong>: Detailed examination of network architectures\, protocols\, and secur
+ ity measures. Topics might include firewalls\, intrusion detection systems 
+ (IDS)\, intrusion prevention systems (IPS)\, virtual private networks (VPNs
+ )\, and secure routing protocols.</p></li><li><p><strong>Cryptography</stro
+ ng>: Understanding the role of cryptography in securing data. This includes
+  symmetric and asymmetric encryption\, hashing algorithms\, digital signatu
+ res\, and cryptographic protocols like SSL/TLS for secure communication.</p
+ ></li><li><p><strong>Security Policies and Laws</strong>: Overview of the l
+ egal\, ethical\, and professional issues in cybersecurity. Discussion of pr
+ ivacy laws\, regulatory requirements (e.g.\, GDPR\, HIPAA)\, and the develo
+ pment and implementation of security policies and incident response plans.<
+ /p></li><li><p><strong>Operating System and Application Security</strong>: 
+ Techniques and tools for securing operating systems (Windows\, Linux\, etc.
+ ) and applications. This may cover topics such as access controls\, secure 
+ coding practices\, application vulnerabilities\, and patch management.</p><
+ /li><li><p><strong>Threat Analysis and Mitigation</strong>: Techniques for 
+ identifying\, analyzing\, and mitigating cyber threats. This could include 
+ malware analysis\, penetration testing\, risk assessment methodologies\, an
+ d the use of various security frameworks (e.g.\, NIST\, ISO/IEC 27001).</p>
+ </li><li><p><strong>Cyber Physical Systems Security</strong>: Addressing th
+ e security considerations for cyber-physical systems (CPS) such as industri
+ al control systems (ICS)\, Supervisory Control and Data Acquisition (SCADA)
+  systems\, and Internet of Things (IoT) devices.</p></li><li><p><strong>Clo
+ ud Security</strong>: Security challenges and strategies related to cloud c
+ omputing. Topics may include cloud architecture\, secure data storage\, ide
+ ntity and access management (IAM)\, and compliance issues in cloud environm
+ ents.</p></li><li><p><strong>Incident Response and Disaster Recovery</stron
+ g>: Preparing for\, responding to\, and recovering from cybersecurity incid
+ ents. This includes the creation of incident response teams\, forensic anal
+ ysis\, and disaster recovery planning.</p></li><li><p><strong>Emerging Tren
+ ds in Cybersecurity</strong>: Exploration of emerging technologies and tren
+ ds in cybersecurity\, such as artificial intelligence (AI) and machine lear
+ ning in security\, blockchain for security\, and the evolving landscape of 
+ cyber warfare and cyber terrorism.</p></li><li><p><strong>Hands-on Labs and
+  Projects</strong>: Practical\, hands-on labs and projects are critical to 
+ applying theoretical concepts. These might involve setting up secure networ
+ ks\, performing penetration tests\, conducting forensic analysis\, or devel
+ oping secure applications.</p></li></ol><br><span><br></span><br><span><br>
+ </span><br><span>Item                                      Weight </span><b
+ r><span>HW Assignments (5 total)    30%</span><br><span>Quizzes  (3 total) 
+                    30% </span><br><span>Final Exam                         
+       35%</span><br><span>Attendance                              5%   </sp
+ an><table><caption><br></caption><caption>Letter Grade Distribution</captio
+ n><thead><tr><th><strong><b>Range</b></strong></th><th><strong><b>Letter Gr
+ ade</b></strong></th></tr></thead><tbody><tr><td>Total Score ≥ 90%</td><td>
+ A</td></tr><tr><td>90% &gt\; Total Score ≥ 85%</td><td>B+</td></tr><tr><td>
+ 85% &gt\; Total Score ≥ 80%</td><td>B</td></tr><tr><td>80% &gt\; Total Scor
+ e ≥ 75%</td><td>C+</td></tr><tr><td>75% &gt\; Total Score ≥ 70%</td><td>C</
+ td></tr><tr><td>70% &gt\; Total Score ≥ 65%</td><td>D+</td></tr><tr><td>65%
+  &gt\; Total Score ≥ 60%</td><td>D</td></tr><tr><td>60% &gt\; Total Score</
+ td><td>F</td></tr></tbody></table>
+LAST-MODIFIED:20240401T220209Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - Cyber/Infrastructure Defense
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/Denver:20240115T093000
+DTEND;TZID=America/Denver:20240115T104500
+RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20240510T055959Z;BYDAY=MO,WE
+DTSTAMP:20240404T020403Z
+UID:6kl813t5p1487pti68hl2ed5t2@google.com
+CREATED:20240226T203500Z
+DESCRIPTION:<p>Theory of Computation delves into the fundamental questions 
+ about what can be computed and how efficiently computations can be performe
+ d. It is a core area of computer science that intersects with mathematics\,
+  logic\, and algorithms\, providing a theoretical framework for understandi
+ ng the capabilities and limitations of computing machines. The course is es
+ sential for students interested in the deeper theoretical aspects of comput
+ er science\, including algorithms\, complexity theory\, and the nature of c
+ omputation itself. Here's an overview of the key topics and components typi
+ cally covered:</p><ol><li><p><strong>Automata Theory</strong>: This area in
+ troduces the concept of automata as abstract models of computing machines. 
+ Students learn about finite automata\, pushdown automata\, and Turing machi
+ nes\, which correspond to different classes of computational problems. The 
+ study of automata is foundational for understanding how problems can be mec
+ hanistically solved.</p></li><li><p><strong>Formal Languages and Grammars</
+ strong>: This topic explores the formalisms used to describe and classify l
+ anguages (sets of strings) that automata can recognize. It covers the Choms
+ ky hierarchy\, which classifies languages into types based on their generat
+ ive grammars\, from regular and context-free languages to context-sensitive
+  and recursively enumerable languages.</p></li><li><p><strong>Computability
+  Theory</strong>: Also known as recursion theory\, computability theory add
+ resses the question of what problems can be solved by algorithms\, hence wh
+ at is computable. It includes the study of recursive functions\, the Church
+ -Turing thesis\, and the concept of undecidability\, illustrated by famous 
+ problems like the Halting Problem.</p></li><li><p><strong>Complexity Theory
+ </strong>: This area examines the resources (such as time and space) requir
+ ed to solve computational problems and classifies problems based on their i
+ nherent difficulty. Key concepts include P vs. NP\, NP-completeness\, and v
+ arious complexity classes like P\, NP\, EXP\, and space complexity classes 
+ like PSPACE.</p></li><li><p><strong>Algorithmic Complexity and Efficiency</
+ strong>: Related to complexity theory\, this topic focuses on analyzing alg
+ orithms to determine their efficiency and scalability. It involves understa
+ nding big O notation\, time-space trade-offs\, and the limits of algorithmi
+ c optimization.</p></li><li><p><strong>Reduction and Completeness</strong>:
+  The course may cover reductions\, a method for proving that problems are a
+ t least as hard as others\, thereby establishing hardness and completeness 
+ within various complexity classes\, particularly NP-completeness.</p></li><
+ li><p><strong>Decidability and Recursion</strong>: An exploration of which 
+ problems can be algorithmically decided\, the limits of algorithmic solutio
+ ns\, and how recursive functions play into the theory of computation.</p></
+ li><li><p><strong>Quantum Computation (Optional)</strong>: Some courses mig
+ ht introduce elements of quantum computation\, discussing how quantum bits 
+ and quantum algorithms could potentially solve problems more efficiently th
+ an classical algorithms.</p></li></ol><p>The course typically involves a mi
+ x of lectures\, problem sets\, theoretical exercises\, and sometimes progra
+ mming assignments to implement concepts algorithmically. It's rigorous and 
+ abstract\, requiring a solid foundation in discrete mathematics\, particula
+ rly in areas like set theory\, logic\, and graph theory.</p><br><br>3 homew
+ ork assignments 11% of total grade each ( all three are worth 33.3% )<br><b
+ r>midterm is worth 33.3%<br><br>final is worth 33.3%<br><br>HW1 - due 02.22
+  worth 100pts<br>HW2 - due 04.15 worth 100pts<br>HW3 - due 05.01 worth 100p
+ ts<br><br>MIDTERM - 02.26 worth 33%<br>FINAL        - 05.06 worth 33%
+LAST-MODIFIED:20240401T220414Z
+LOCATION:Lawrence Street Center\, LW-844\, 1380 Lawrence St\, Denver\, CO 8
+ 0204\, USA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - Theory of Computation
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240124T010000Z
+DTEND:20240124T020000Z
+DTSTAMP:20240404T020403Z
+UID:7ak6me2icbgnij1jc133ekh4nk@google.com
+CREATED:20240322T163901Z
+DESCRIPTION:HW1 homework-1 hw 1 hw-1
+LAST-MODIFIED:20240401T220447Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 1
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240202T020000Z
+DTEND:20240202T030000Z
+DTSTAMP:20240404T020403Z
+UID:313ovmfcn3ak630cufrokurv1b@google.com
+CREATED:20240322T171346Z
+DESCRIPTION:Assignment 1 homework-1 homework 1 hw-1 homework 1
+LAST-MODIFIED:20240401T220533Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - HW 1
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240215T013000Z
+DTEND:20240215T023000Z
+DTSTAMP:20240404T020403Z
+UID:2r3f31ph0u1f4tc1j0v28mo5ml@google.com
+CREATED:20240322T163939Z
+DESCRIPTION:hw2 hw-2 homework 2 homework-2 hw <br><br><br><strong>Real-Time
+  Operating Systems (RTOS)</strong>: Many embedded systems require real-time
+  performance\, where tasks must be completed within strict time constraints
+ . An RTOS manages the hardware resources and scheduling to meet these time 
+ requirements.<br><br><strong>Programming Languages</strong>: C and C++ are 
+ the most commonly used programming languages for embedded systems due to th
+ eir efficiency and control over system resources. Assembly language is also
+  used for very low-level programming\, and newer languages like Rust are ga
+ ining traction for their safety features.
+LAST-MODIFIED:20240401T220706Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240215T023000Z
+DTEND:20240215T033000Z
+DTSTAMP:20240404T020403Z
+UID:0au9g41lmod5bea06rj7pf7ahj@google.com
+CREATED:20240322T164014Z
+DESCRIPTION:hw3 hw 3 homework 3 homework-3
+LAST-MODIFIED:20240401T220730Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 3
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240215T201500Z
+DTEND:20240215T204500Z
+DTSTAMP:20240404T020403Z
+UID:0sdisor1maqklpmmauv7423od2@google.com
+CREATED:20240322T170906Z
+DESCRIPTION:Quiz 01 <br><br>Quiz 1 Topics to Study: <br><br><ol><li><p><str
+ ong>Fundamentals of Information Security</strong>: Introduction to the foun
+ dational concepts of cybersecurity\, including the CIA triad (confidentiali
+ ty\, integrity\, availability)\, types of security threats\, vulnerabilitie
+ s\, and the principles of secure design.</p></li><li><p><strong>Network Sec
+ urity</strong>: Detailed examination of network architectures\, protocols\,
+  and security measures. Topics might include firewalls\, intrusion detectio
+ n systems (IDS)\, intrusion prevention systems (IPS)\, virtual private netw
+ orks (VPNs)\, and secure routing protocols.</p></li><li><p><strong>Cryptogr
+ aphy</strong>: Understanding the role of cryptography in securing data. Thi
+ s includes symmetric and asymmetric encryption\, hashing algorithms\, digit
+ al signatures\, and cryptographic protocols like SSL/TLS for secure communi
+ cation.</p></li></ol>
+LAST-MODIFIED:20240401T220821Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - Quiz 1
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240216T030000Z
+DTEND:20240216T033000Z
+DTSTAMP:20240404T020403Z
+UID:4r46lkm1cg78rhcdmjfilt6n6g@google.com
+CREATED:20240312T211204Z
+DESCRIPTION:Lab 2 due<br><br>DUE : 02/15/2024<br><br><strong>Socket Program
+ ming</strong>: At the heart of network programming\, socket programming inv
+ olves creating endpoints (sockets) for communication between devices. The c
+ ourse will likely cover how to use sockets in various programming languages
+ \, such as C/C++\, Python\, or Java\, and the differences between TCP socke
+ ts (stream-based) and UDP sockets (datagram-based).
+LAST-MODIFIED:20240401T220901Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 2 DUE
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240222T013000Z
+DTEND:20240222T023000Z
+DTSTAMP:20240404T020403Z
+UID:1br9ervv6v7dg1haagguctn5c9@google.com
+CREATED:20240322T164041Z
+DESCRIPTION:hw4 hw-4 homework4 homework 4 hw<br><br><strong>Input/Output In
+ terfaces</strong>: Embedded systems often interact with the external world 
+ through sensors and actuators. Programming these interfaces involves managi
+ ng digital and analog inputs/outputs\, communication protocols (e.g.\, SPI\
+ , I2C\, UART)\, and sometimes complex signal processing.
+LAST-MODIFIED:20240401T220958Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 4
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240223T023000Z
+DTEND:20240223T033000Z
+DTSTAMP:20240404T020403Z
+UID:142it3c286nc3boflcle2or7gp@google.com
+CREATED:20240322T172030Z
+DESCRIPTION:Homework 1 hw-1 hw homework-1
+LAST-MODIFIED:20240401T221022Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - HW 1
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240301T030000Z
+DTEND:20240301T033000Z
+DTSTAMP:20240404T020403Z
+UID:29l3j3m9uk15554gaagdje050k@google.com
+CREATED:20240312T211316Z
+DESCRIPTION:lab 4 due<br><br>Lab 4 <br><br><strong>Concurrent Programming</
+ strong>: Since network applications often handle multiple connections simul
+ taneously\, an understanding of concurrency is essential. This might involv
+ e threads\, processes\, asynchronous I/O\, or event-driven programming\, de
+ pending on the technology stack used.
+LAST-MODIFIED:20240401T221122Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 4 DUE
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240304T163000Z
+DTEND:20240304T174500Z
+DTSTAMP:20240404T020403Z
+UID:6rvk2fggtj7mbh4p5ct4pclaul@google.com
+CREATED:20240322T172123Z
+DESCRIPTION:Theory midterm\, test Midterm Test<br><br>Topics for study:<br>
+ <br><ol><li><p><strong>Automata Theory</strong>: This area introduces the c
+ oncept of automata as abstract models of computing machines. Students learn
+  about finite automata\, pushdown automata\, and Turing machines\, which co
+ rrespond to different classes of computational problems. The study of autom
+ ata is foundational for understanding how problems can be mechanistically s
+ olved.</p></li><li><p><strong>Formal Languages and Grammars</strong>: This 
+ topic explores the formalisms used to describe and classify languages (sets
+  of strings) that automata can recognize. It covers the Chomsky hierarchy\,
+  which classifies languages into types based on their generative grammars\,
+  from regular and context-free languages to context-sensitive and recursive
+ ly enumerable languages.</p></li><li><p><strong>Computability Theory</stron
+ g>: Also known as recursion theory\, computability theory addresses the que
+ stion of what problems can be solved by algorithms\, hence what is computab
+ le. It includes the study of recursive functions\, the Church-Turing thesis
+ \, and the concept of undecidability\, illustrated by famous problems like 
+ the Halting Problem.</p></li></ol>
+LAST-MODIFIED:20240401T221228Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - Theory Midterm
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240314T000000Z
+DTEND:20240314T010000Z
+DTSTAMP:20240404T020403Z
+UID:0rukl18b4crbvsdct0qb4v23lj@google.com
+CREATED:20240322T163718Z
+DESCRIPTION:hw 5 homework 5 hw-5 homework-5<br><br><strong>Power Management
+ </strong>: Many embedded systems are battery-powered and require careful ma
+ nagement of power consumption. Programming for power efficiency involves te
+ chniques such as sleep modes\, dynamic power scaling\, and efficient use of
+  peripherals.
+LAST-MODIFIED:20240401T221326Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 5
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240315T020000Z
+DTEND:20240315T023000Z
+DTSTAMP:20240404T020403Z
+UID:6jktrrbb9vsn6817qqc5l3htrv@google.com
+CREATED:20240312T210318Z
+DESCRIPTION:Lab 6 is due<br><br><strong>Web Services and APIs</strong>: Int
+ roduction to web services and Application Programming Interfaces (APIs)\, i
+ ncluding RESTful services and SOAP. This section covers how to design\, imp
+ lement\, and consume web services\, which are critical for modern web appli
+ cations.
+LAST-MODIFIED:20240401T221343Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 6 
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240322T020000Z
+DTEND:20240322T023000Z
+DTSTAMP:20240404T020403Z
+UID:3o082kam8o6fat8275aas8tq0t@google.com
+CREATED:20240312T210430Z
+DESCRIPTION:Lab 7 <br><br><strong>Network Application Protocols</strong>: D
+ etailed exploration of application layer protocols such as HTTP\, FTP\, SMT
+ P\, and DNS. Understanding these protocols is essential for developing appl
+ ications that perform web browsing\, file transfer\, email\, and domain nam
+ e resolution.
+LAST-MODIFIED:20240401T221450Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 7
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240328T191500Z
+DTEND:20240328T194500Z
+DTSTAMP:20240404T020403Z
+UID:10p7gehut68uvgobqi9paeff82@google.com
+CREATED:20240322T170955Z
+DESCRIPTION:quiz 2 quiz-2 quiz2<br><br><ol><li><p><strong>Security Policies
+  and Laws</strong>: Overview of the legal\, ethical\, and professional issu
+ es in cybersecurity. Discussion of privacy laws\, regulatory requirements (
+ e.g.\, GDPR\, HIPAA)\, and the development and implementation of security p
+ olicies and incident response plans.</p></li><li><p><strong>Operating Syste
+ m and Application Security</strong>: Techniques and tools for securing oper
+ ating systems (Windows\, Linux\, etc.) and applications. This may cover top
+ ics such as access controls\, secure coding practices\, application vulnera
+ bilities\, and patch management.</p></li><li><p><strong>Threat Analysis and
+  Mitigation</strong>: Techniques for identifying\, analyzing\, and mitigati
+ ng cyber threats. This could include malware analysis\, penetration testing
+ \, risk assessment methodologies\, and the use of various security framewor
+ ks (e.g.\, NIST\, ISO/IEC 27001).</p></li></ol>
+LAST-MODIFIED:20240401T221524Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - Quiz 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240328T003000Z
+DTEND:20240328T013000Z
+DTSTAMP:20240404T020403Z
+UID:2vmjm47kin6hgsbegojltbj61i@google.com
+CREATED:20240322T164332Z
+DESCRIPTION:hw-6 homework 6 hw <br><br><br><strong>Development Environments
+  and Tools</strong>: Integrated Development Environments (IDEs) and tools s
+ pecific to the target hardware are used for coding\, debugging\, and testin
+ g. These tools often include simulators\, emulators\, and real-time debuggi
+ ng features.
+LAST-MODIFIED:20240401T221546Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4287 - HW 6
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240405T010000Z
+DTEND:20240405T020000Z
+DTSTAMP:20240404T020403Z
+UID:3fi2keq1tjmf0bl73l976tk3lm@google.com
+CREATED:20240322T171233Z
+DESCRIPTION:hw-3 hw 3 due homework <br><br><br><br><ol><li><p><strong>Cloud
+  Security</strong>: Security challenges and strategies related to cloud com
+ puting. Topics may include cloud architecture\, secure data storage\, ident
+ ity and access management (IAM)\, and compliance issues in cloud environmen
+ ts.</p></li><li><p><strong>Incident Response and Disaster Recovery</strong>
+ : Preparing for\, responding to\, and recovering from cybersecurity inciden
+ ts. This includes the creation of incident response teams\, forensic analys
+ is\, and disaster recovery planning.</p></li><li><p><strong>Emerging Trends
+  in Cybersecurity</strong>: Exploration of emerging technologies and trends
+  in cybersecurity\, such as artificial intelligence (AI) and machine learni
+ ng in security\, blockchain for security\, and the evolving landscape of cy
+ ber warfare and cyber terrorism.</p></li></ol>
+LAST-MODIFIED:20240401T221640Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - HW 3
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240405T020000Z
+DTEND:20240405T023000Z
+DTSTAMP:20240404T020403Z
+UID:71kognma6b7mb7v60sasd0eukj@google.com
+CREATED:20240312T210512Z
+DESCRIPTION:lab 8 due lab 08<br><br><br><strong>Advanced Topics</strong>: D
+ epending on the course’s depth\, it might cover more advanced topics like n
+ etwork programming with frameworks (e.g.\, .NET or Node.js)\, peer-to-peer 
+ systems\, network simulation tools\, or specific protocols for IoT devices.
+LAST-MODIFIED:20240401T221658Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 8
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240416T020000Z
+DTEND:20240416T023000Z
+DTSTAMP:20240404T020403Z
+UID:6kib3q4uqv3d6qbptphijaf0l5@google.com
+CREATED:20240322T172222Z
+DESCRIPTION:Theory HOMEWORK 2 - DUE hw-2 homework 2 hw2<br><br><br><ol><li>
+ <p><strong>Algorithmic Complexity and Efficiency</strong>: Related to compl
+ exity theory\, this topic focuses on analyzing algorithms to determine thei
+ r efficiency and scalability. It involves understanding big O notation\, ti
+ me-space trade-offs\, and the limits of algorithmic optimization.</p></li><
+ li><p><strong>Reduction and Completeness</strong>: The course may cover red
+ uctions\, a method for proving that problems are at least as hard as others
+ \, thereby establishing hardness and completeness within various complexity
+  classes\, particularly NP-completeness.</p></li></ol>
+LAST-MODIFIED:20240401T221742Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - Theory HW 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240419T020000Z
+DTEND:20240419T023000Z
+DTSTAMP:20240404T020403Z
+UID:1mos1qt0hjj7e6lsefhf5bc425@google.com
+CREATED:20240312T210604Z
+DESCRIPTION:Lab 9 DUE <br><br><br><ol><li><p><strong>Networking Fundamental
+ s</strong>: Understanding the basic principles of computer networks\, inclu
+ ding the OSI and TCP/IP models\, network topologies\, and key protocols suc
+ h as TCP\, UDP\, IP\, and HTTP. This foundation is crucial for understandin
+ g how data moves across the network.</p></li><li><p><strong>Socket Programm
+ ing</strong>: At the heart of network programming\, socket programming invo
+ lves creating endpoints (sockets) for communication between devices. The co
+ urse will likely cover how to use sockets in various programming languages\
+ , such as C/C++\, Python\, or Java\, and the differences between TCP socket
+ s (stream-based) and UDP sockets (datagram-based).</p></li><li><p><strong>C
+ lient-Server Model</strong>: Learning how to design and implement the clien
+ t-server architecture\, where servers provide resources or services and cli
+ ents access them. This includes understanding stateful vs. stateless design
+ \, multi-threaded servers\, and handling multiple clients.</p></li><li><p><
+ strong>Concurrent Programming</strong>: Since network applications often ha
+ ndle multiple connections simultaneously\, an understanding of concurrency 
+ is essential. This might involve threads\, processes\, asynchronous I/O\, o
+ r event-driven programming\, depending on the technology stack used.</p></l
+ i><li><p><strong>Network Security</strong>: An overview of the principles o
+ f network security\, including encryption\, authentication\, and secure com
+ munication protocols (e.g.\, SSL/TLS). Security practices are vital for pro
+ tecting data in transit and preventing unauthorized access.</p></li><li><p>
+ <strong>Web Services and APIs</strong>: Introduction to web services and Ap
+ plication Programming Interfaces (APIs)\, including RESTful services and SO
+ AP. This section covers how to design\, implement\, and consume web service
+ s\, which are critical for modern web applications.</p></li></ol>
+LAST-MODIFIED:20240401T221834Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 9
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240318T013000Z
+DTEND:20240318T023000Z
+DTSTAMP:20240404T020403Z
+UID:5seeq844qj620bi32u49aj4o7d@google.com
+CREATED:20240322T171313Z
+DESCRIPTION:hw-2 homework 2<br><br>hw 2<br><br><ol><li><p><strong>Cryptogra
+ phy</strong>: Understanding the role of cryptography in securing data. This
+  includes symmetric and asymmetric encryption\, hashing algorithms\, digita
+ l signatures\, and cryptographic protocols like SSL/TLS for secure communic
+ ation.</p></li><li><p><strong>Security Policies and Laws</strong>: Overview
+  of the legal\, ethical\, and professional issues in cybersecurity. Discuss
+ ion of privacy laws\, regulatory requirements (e.g.\, GDPR\, HIPAA)\, and t
+ he development and implementation of security policies and incident respons
+ e plans.</p></li><li><p><strong>Operating System and Application Security</
+ strong>: Techniques and tools for securing operating systems (Windows\, Lin
+ ux\, etc.) and applications. This may cover topics such as access controls\
+ , secure coding practices\, application vulnerabilities\, and patch managem
+ ent.</p></li><li><p><strong>Threat Analysis and Mitigation</strong>: Techni
+ ques for identifying\, analyzing\, and mitigating cyber threats. This could
+  include malware analysis\, penetration testing\, risk assessment methodolo
+ gies\, and the use of various security frameworks (e.g.\, NIST\, ISO/IEC 27
+ 001).</p></li></ol>
+LAST-MODIFIED:20240401T221928Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - HW 2
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240424T020000Z
+DTEND:20240424T030000Z
+DTSTAMP:20240404T020403Z
+UID:4f94m2gn6i7pm8p8s8flkofq0j@google.com
+CREATED:20240322T171146Z
+DESCRIPTION:assignment 4 due hw4 homework 4 hw-4 cyber security and infrast
+ ructure defense<br><br><br><br><ol><li><p><strong>Cyber Physical Systems Se
+ curity</strong>: Addressing the security considerations for cyber-physical 
+ systems (CPS) such as industrial control systems (ICS)\, Supervisory Contro
+ l and Data Acquisition (SCADA) systems\, and Internet of Things (IoT) devic
+ es.</p></li><li><p><strong>Cloud Security</strong>: Security challenges and
+  strategies related to cloud computing. Topics may include cloud architectu
+ re\, secure data storage\, identity and access management (IAM)\, and compl
+ iance issues in cloud environments.</p></li></ol>
+LAST-MODIFIED:20240401T222045Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - HW 4
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240502T020000Z
+DTEND:20240502T023000Z
+DTSTAMP:20240404T020403Z
+UID:6k2qno35bipd5tdkmggd90o5om@google.com
+CREATED:20240322T172304Z
+DESCRIPTION:theory homework 3 hw-3 hw<br><br><br><br><ol><li><p><strong>Alg
+ orithmic Complexity and Efficiency</strong>: Related to complexity theory\,
+  this topic focuses on analyzing algorithms to determine their efficiency a
+ nd scalability. It involves understanding big O notation\, time-space trade
+ -offs\, and the limits of algorithmic optimization.</p></li><li><p><strong>
+ Reduction and Completeness</strong>: The course may cover reductions\, a me
+ thod for proving that problems are at least as hard as others\, thereby est
+ ablishing hardness and completeness within various complexity classes\, par
+ ticularly NP-completeness.</p></li><li><p><strong>Decidability and Recursio
+ n</strong>: An exploration of which problems can be algorithmically decided
+ \, the limits of algorithmic solutions\, and how recursive functions play i
+ nto the theory of computation.</p></li><li><p><strong>Quantum Computation (
+ Optional)</strong>: Some courses might introduce elements of quantum comput
+ ation\, discussing how quantum bits and quantum algorithms could potentiall
+ y solve problems more efficiently than classical algorithms.</p></li></ol>
+LAST-MODIFIED:20240401T222109Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 4034 - HW 3
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240503T020000Z
+DTEND:20240503T023000Z
+DTSTAMP:20240404T020403Z
+UID:6h6a3a9t7e3l417se4shnfkari@google.com
+CREATED:20240312T210643Z
+DESCRIPTION:Lab 10 DUE - server architecture\n\nComprehensive lab to cover 
+ all topics.
+LAST-MODIFIED:20240401T222137Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 10 DUE
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240502T191500Z
+DTEND:20240502T194500Z
+DTSTAMP:20240404T020403Z
+UID:3hr2c69m09bonj8070tj4gfi1h@google.com
+CREATED:20240322T171037Z
+DESCRIPTION:Quiz 03 quiz 3 - cyber security and infrastructure defense<br><
+ br><br><ol><li><p><strong>Cyber Physical Systems Security</strong>: Address
+ ing the security considerations for cyber-physical systems (CPS) such as in
+ dustrial control systems (ICS)\, Supervisory Control and Data Acquisition (
+ SCADA) systems\, and Internet of Things (IoT) devices.</p></li><li><p><stro
+ ng>Cloud Security</strong>: Security challenges and strategies related to c
+ loud computing. Topics may include cloud architecture\, secure data storage
+ \, identity and access management (IAM)\, and compliance issues in cloud en
+ vironments.</p></li><li><p><strong>Incident Response and Disaster Recovery<
+ /strong>: Preparing for\, responding to\, and recovering from cybersecurity
+  incidents. This includes the creation of incident response teams\, forensi
+ c analysis\, and disaster recovery planning.</p></li><li><p><strong>Emergin
+ g Trends in Cybersecurity</strong>: Exploration of emerging technologies an
+ d trends in cybersecurity\, such as artificial intelligence (AI) and machin
+ e learning in security\, blockchain for security\, and the evolving landsca
+ pe of cyber warfare and cyber terrorism.</p></li></ol>
+LAST-MODIFIED:20240401T222212Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:CSCI 4743 - Quiz 3
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240209T030000Z
+DTEND:20240209T033000Z
+DTSTAMP:20240404T020403Z
+UID:4snaoo4g6uk5io8jgbr1sq86fl@google.com
+CREATED:20240312T211117Z
+DESCRIPTION:Lab 1<br><br><strong>Networking Fundamentals</strong>: Understa
+ nding the basic principles of computer networks\, including the OSI and TCP
+ /IP models\, network topologies\, and key protocols such as TCP\, UDP\, IP\
+ , and HTTP. This foundation is crucial for understanding how data moves acr
+ oss the network.
+LAST-MODIFIED:20240404T020304Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 1 
+TRANSP:OPAQUE
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20240223T030000Z
+DTEND:20240223T033000Z
+DTSTAMP:20240404T020403Z
+UID:11bni8qisi0em4b9c9fj29gga1@google.com
+CREATED:20240312T211245Z
+DESCRIPTION:Lab 3 due<br><br><strong>Client-Server Model</strong>: Learning
+  how to design and implement the client-server architecture\, where servers
+  provide resources or services and clients access them. This includes under
+ standing stateful vs. stateless design\, multi-threaded servers\, and handl
+ ing multiple clients.
+LAST-MODIFIED:20240404T020329Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:CSCI 3762 - Lab 3
+TRANSP:OPAQUE
+END:VEVENT
+END:VCALENDAR
