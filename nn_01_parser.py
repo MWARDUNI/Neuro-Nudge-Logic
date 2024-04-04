@@ -4,7 +4,8 @@ from dateutil.parser import parse
 import pytz
 import copy
 
-
+# list of dicts syntax
+# list[index][key] = value
 
 
 def parse_ics(file_path):
@@ -42,7 +43,7 @@ def parse_ics(file_path):
             if component.get('rrule'):
                 event['recurrence'] = str(component.get('rrule'))
             else:
-                keywords = ['homework', 'project', 'quiz', 'midterm', 'final', 'lab', 'hw']
+                keywords = ['homework', 'project', 'quiz', 'midterm', 'final', 'lab', 'HW', 'hw']
                 if any(keyword in event['summary'].lower() for keyword in keywords) or \
                    any(keyword in event['description'].lower() for keyword in keywords):
                     assignment_type = next((keyword for keyword in keywords if keyword in event['summary'].lower()), 'unknown')
@@ -84,13 +85,19 @@ def parse_ics(file_path):
 
 
 
-events, assignments = parse_ics('testcal.ics')
+events, assignments = parse_ics('class_cal.ics')
 
 # make copies of events and assignments data by value.
 copy_events = copy.deepcopy(events)
 
-copy_assignments = copy.deepcopy(assignments)
+print("\n type of events: ")
+print(type(events))
+for event in copy_events:
+    print("\n")
+    # print the type(event) to see what type of object it is
+    print(type(event))
 
+copy_assignments = copy.deepcopy(assignments)
 
 
 print("\n")
