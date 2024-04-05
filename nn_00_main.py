@@ -4,7 +4,7 @@ from dateutil.rrule import *
 from dateutil.parser import parse
 import pytz
 import copy 
-
+import pandas as pd
 
 def main():
     # nn_01_parser.py
@@ -18,7 +18,10 @@ def main():
     else:
         print("Error: One or more assignments are not in dictionary format.")
 
-
+    df = pd.DataFrame(events)
+    df.to_csv('events.csv')
+    df = pd.DataFrame(assignments)
+    df.to_csv('assignments.csv')    
     # Impacts on final grade for EACH assignment type
     grade_impact_key = {
         # Theory of Computation

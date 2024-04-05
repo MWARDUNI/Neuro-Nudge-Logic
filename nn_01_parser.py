@@ -3,6 +3,7 @@ from dateutil.rrule import *
 from dateutil.parser import parse
 import pytz
 import copy
+import pandas as pd
 
 # list of dicts syntax
 # list[index][key] = value
@@ -70,6 +71,7 @@ def parse_ics(file_path):
 
             events.append(event)
 
+
     # convert event/assignment dates to UTC timezone, if not None
     for event in events:
         if event['start']:
@@ -87,8 +89,11 @@ def parse_ics(file_path):
 
 events, assignments = parse_ics('class_cal.ics')
 
+
 # make copies of events and assignments data by value.
 copy_events = copy.deepcopy(events)
+
+
 
 print("\n type of events: ")
 print(type(events))

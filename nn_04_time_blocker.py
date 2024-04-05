@@ -2,46 +2,56 @@ from datetime import datetime, timezone, timedelta
 from icalendar import Calendar, Event, Alarm
 from dateutil.rrule import *
 from dateutil.parser import parse
+from supabase import create_client, Client
+from datetime import datetime, timedelta
 
 
-def parse_timeblock_ics():
+def find_available_time_blocks(student_id, date):
+    # Initialize the Supabase client
+    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
+    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
+    supabase: Client = create_client(url, key)
 
-    with open('nn_timeblocks.ics', 'rb') as f:
-        tblockscal = Calendar.from_ical(f.read())
+    try:
+        # query database to get the schedule for the given date
+        response = supabase.table("schedule").select("start_time, end_time").eq("student_id", student_id).eq("date", date).order("start_time").execute()
 
-    timeblocks = []
+        if response.status_code != 200:
+            raise Exception(f"Error fetching schedule: {response.text}")
 
-    for block in tblockscal.walk():
-        if block.name == "VEVENT":
-            timeblock = {
-                'summary': str(block.get('summary', 'No summary provided')),
-                'start': block.get('dtstart').dt if block.get('dtstart') else None,
-                'end': block.get('dtend').dt if block.get('dtend') else None,
-                'location': str(block.get('location', 'No location provided')),
-                'description': str(block.get('description', 'No description provided')),
-                'category': str(block.get('category', 'No category provided')),
-                'status': str(block.get('status', 'No status provided')),
-                'uid': str(block.get('uid', 'No UID provided')),
-                'alarm': block.get('alarm'),
-                'trigger': block.get('trigger'),
-                'action': str(block.get('action', 'DISPLAY')),
-                'related-to': str(block.get('related-to', 'TODO: via UID')),
-                'impact': block.get('impact', 0),
-            }
+        schedule = response.data
 
-            if timeblock['start'] is None or timeblock['end'] is None:
-                print(f"{timeblock['summary']} is missing essential datetime information. Skipping.")
-                continue
+        start_of_day = datetime.combine(date, datetime.min.time(), tzinfo=timezone.utc)
+        end_of_day = datetime.combine(date, datetime.max.time(), tzinfo=timezone.utc)
 
-            if block.get('rrule'):
-                timeblock['recurrence'] = str(block.get('rrule'))
-            else:
-                timeblocks.append(timeblock)
+        # Initialize variables
+        available_blocks = []
+        current_time = start_of_day
 
+        # Iterate through the schedule
+        for event in schedule:
+            start_time = datetime.fromisoformat(event["start_time"])
+            end_time = datetime.fromisoformat(event["end_time"])
 
+            # Check if there is a gap between the current time and the start of the next scheduled event
+            if start_time > current_time + timedelta(hours=1):
+                # Add the available time block to the list
+                available_blocks.append((current_time, current_time + timedelta(hours=1)))
 
+            # Update the current time to the end of the scheduled event
+            current_time = end_time
 
+        # Check if there is an available time block at the end of the day
+        if end_of_day > current_time + timedelta(hours=1):
+            available_blocks.append((current_time, current_time + timedelta(hours=1)))
 
+        return available_blocks
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        return []
+
+ 
 
 # def find_available_time_blocks(ical_data, search_start, search_end, min_duration_hours=1):
 #     """
