@@ -5,11 +5,17 @@ from dateutil.parser import parse
 import pytz
 import copy 
 import pandas as pd
+from supabase import create_client, Client
 
 def main():
     # nn_01_parser.py
     from nn_01_parser import parse_ics
     events, assignments = parse_ics('class_cal.ics')
+    
+    # Initialize the Supabase client
+    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
+    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
+    supabase: Client = create_client(url, key)
 
     # nn_02_categorizer.py
     if all(isinstance(assignment, dict) for assignment in assignments):

@@ -1,12 +1,10 @@
 from datetime import datetime, timedelta
 from icalendar import Calendar, Event
-from supabase import create_client, Client
+from supabase import Client, create_client
+import uuid
 
-def create_study_plan(student_id, start_date=None):
-    # Initialize the Supabase client
-    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
-    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
-    supabase: Client = create_client(url, key)
+def create_study_plan(student_id, supabase: Client, start_date=None):
+    
 
     if start_date is None:
         start_date = datetime.now()
@@ -28,13 +26,18 @@ def create_study_plan(student_id, start_date=None):
 
     try:
         # get all midterm and final assignments
-        response = supabase.table("assignments").select("*").eq("uid", student_id).filter("type", "in", ["final", "midterm"]).order("due").execute()
+        # response = supabase.table("assignments").select("*").eq("uid", student_id).filter("type", "in", ["final", "midterm"]).order("due").execute()
+        response = supabase.table("assignments").select("*").in_("type", ["final", "midterm"]).order("due").execute()
 
         # Check if the query was successful
-        if response.status_code != 200:
-            raise Exception(f"Error fetching assignments: {response.text}")
+        # if response.status_code != 200:
+        #     raise Exception(f"Error fetching assignments: {response.text}")
 
         prioritized_assignments = response.data
+        
+        # Get max class ID
+        max_id = supabase.table("events").select("class_id").order('class_id', desc=True).limit(1).execute().data
+        max_id = max_id[0]['class_id'] + 1
 
         print("\n")
         print("============================================================\n")
@@ -74,23 +77,36 @@ def create_study_plan(student_id, start_date=None):
 
                             # Add the study plan event to the list
                             study_plan_events.append({
-                                'uid': student_id,
-                                'class': class_name,
+                                'class_id': max_id,
+                                'uid': str(uuid.uuid4()),
+                                'summary': class_name,
                                 'description': f'{day_name}: {task_name} - {assignment_type}',
                                 'start_time': day_start.isoformat(),
                                 'end_time': (day_start + timedelta(minutes=duration_mins)).isoformat(),
                                 'impact': assignment['impact']
                             })
+                            max_id += 1
 
                         print(f"{day_name}: {tasks} on {day_start} to {day_start + timedelta(days=1)}\n")
 
         # Sort the study plan events by impact in descending order
         study_plan_events.sort(key=lambda x: x['impact'], reverse=True)
+        # print(study_plan_events)
+        supabase.table("events").upsert(study_plan_events).execute()
 
         # Insert the study plan events into the "events" table
-        for event in study_plan_events:
-            supabase.table("events").insert(event).execute()
+        # for event in study_plan_events:
+        #     supabase.table("events").insert(event).execute()
+            
 
 
     except Exception as e:
         print(f"Error: {str(e)}")
+        
+        
+if __name__ == "__main__":
+    # Initialize the Supabase client
+    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
+    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
+    supabase: Client = create_client(url, key)
+    create_study_plan("1", supabase)

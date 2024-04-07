@@ -6,11 +6,7 @@ from supabase import create_client, Client
 from datetime import datetime, timedelta
 
 
-def find_available_time_blocks(student_id, date):
-    # Initialize the Supabase client
-    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
-    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
-    supabase: Client = create_client(url, key)
+def find_available_time_blocks(supabase: Client, class_id, date):
 
     try:
         # query database to get the schedule for the given date
@@ -102,3 +98,10 @@ def find_available_time_blocks(student_id, date):
 # available_blocks = find_available_time_blocks(ical_data, search_start, search_end, 1)  # Looking for 1-hour blocks
 # for start, end in available_blocks:
 #     print(f"Available: {start.strftime('%Y-%m-%d %H:%M')} to {end.strftime('%Y-%m-%d %H:%M')}")
+
+if __name__ == "__main__":
+    # Initialize the Supabase client
+    url = "https://fgocfoakntmlhgtftrzh.supabase.co"
+    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
+    supabase: Client = create_client(url, key)
+    find_available_time_blocks(supabase, 4, )
