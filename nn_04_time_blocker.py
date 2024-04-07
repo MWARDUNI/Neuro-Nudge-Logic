@@ -14,7 +14,7 @@ def find_available_time_blocks(student_id, date):
 
     try:
         # query database to get the schedule for the given date
-        response = supabase.table("events").select("start_time, end_time").eq("student_id", student_id).eq("date", date).order("start_time").execute()
+        response = supabase.table("events").select("start_time, end_time").eq("class_id", class_id).eq("date", date).order("start_time").execute()
 
         if response.status_code != 200:
             raise Exception(f"Error fetching schedule: {response.text}")
