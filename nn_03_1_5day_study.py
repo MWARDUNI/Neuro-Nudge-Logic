@@ -3,9 +3,15 @@ from icalendar import Calendar, Event
 from supabase import Client, create_client
 import uuid
 
+# References:
+# Blerkom, D. L. (2012). Orientation to college learning (7 edition). Boston: Engage
+# Blerkom, D. L. and Mulcahy-Ernt, P. I. (2004). College reading and study strategies. Boston: Cengage.
+# Texas A&M University Academic Success Center (n.d.). 5 day study plan. https://asc.tamu.edu/study-learning-handouts/5-day-study-plan
+
+
+
 def create_study_plan(student_id, supabase: Client, start_date=None):
     
-
     if start_date is None:
         start_date = datetime.now()
 
