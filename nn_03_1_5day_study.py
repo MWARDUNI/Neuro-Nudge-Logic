@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from icalendar import Calendar, Event
+from typing import List
 
 def create_study_plan(prioritized_assignments, start_date=None):
     if start_date is None:
