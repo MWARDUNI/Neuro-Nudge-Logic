@@ -64,7 +64,6 @@ def parse_ics(file_path):
                         'category': event['category'],
                         'related-to': event['related-to'], # related event
                         'impact': event['impact'], # default impact value
-                        
                     }
                     assignments.append(assignment)
                     continue  # skip adding to events if it's an assignment

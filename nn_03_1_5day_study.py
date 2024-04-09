@@ -32,16 +32,11 @@ def create_study_plan(student_id, supabase: Client, start_date=None):
 
     try:
         # get all midterm and final assignments
-        # response = supabase.table("assignments").select("*").eq("uid", student_id).filter("type", "in", ["final", "midterm"]).order("due").execute()
         response = supabase.table("assignments").select("*").in_("type", ["final", "midterm"]).order("due").execute()
-
-        # Check if the query was successful
-        # if response.status_code != 200:
-        #     raise Exception(f"Error fetching assignments: {response.text}")
 
         prioritized_assignments = response.data
         
-        # Get max class ID
+        # get max class ID
         max_id = supabase.table("events").select("class_id").order('class_id', desc=True).limit(1).execute().data
         max_id = max_id[0]['class_id'] + 1
 
@@ -81,7 +76,7 @@ def create_study_plan(student_id, supabase: Client, start_date=None):
                             event.add('dtend', day_start + timedelta(minutes=duration_mins))
                             cal.add_component(event)
 
-                            # Add the study plan event to the list
+                            # add study plan event to the list
                             study_plan_events.append({
                                 'class_id': max_id,
                                 'uid': str(uuid.uuid4()),
@@ -95,15 +90,10 @@ def create_study_plan(student_id, supabase: Client, start_date=None):
 
                         print(f"{day_name}: {tasks} on {day_start} to {day_start + timedelta(days=1)}\n")
 
-        # Sort the study plan events by impact in descending order
+        # sort study plan events by impact in descending order
         study_plan_events.sort(key=lambda x: x['impact'], reverse=True)
         # print(study_plan_events)
         supabase.table("events").upsert(study_plan_events).execute()
-
-        # Insert the study plan events into the "events" table
-        # for event in study_plan_events:
-        #     supabase.table("events").insert(event).execute()
-            
 
 
     except Exception as e:
@@ -116,3 +106,30 @@ if __name__ == "__main__":
     key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
     supabase: Client = create_client(url, key)
     create_study_plan("1", supabase)
+
+
+
+
+# Prepare Strategies:
+# Develop study sheets or study guides
+# Make flash cards
+# Outline/summarize material
+# Develop concept maps or charts (make sure you use use linking terms)
+# List the steps in a complex process or develop a flow chart
+# Make a list of 20 topics that could be on the exam. Be able to explain why you think they might be on the test.
+# Predict (and answer!) practice test/essay questions
+# Answer questions at the end of the chapter (that weren’t assigned as HW)
+# Prepare material for a study group
+
+
+# Review Strategies:
+# Explain concepts to others
+# Use your quizlets or flash cards
+# Work problems (no looking at answer keys!)
+# Take self-tests (try to mimic test conditions if you can)
+# Recite from memory (better yet, tell your cat or favorite pillow) your list of 20 topics that could be on the exam.
+# Work the problems that you missed on quizzes, HW, or questions at the end of the chapter
+# Outline answers to essay questions from memory
+# Write a full sample essay
+# Explain material to group members or study partners
+

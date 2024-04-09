@@ -12,19 +12,16 @@ def find_available_time_blocks(supabase: Client, class_id, date):
         # query database to get the schedule for the given date
         response = supabase.table("events").select("start_time, end_time").eq("class_id", class_id).eq("date", date).order("start_time").execute()
 
-        if response.status_code != 200:
-            raise Exception(f"Error fetching schedule: {response.text}")
 
         schedule = response.data
 
         start_of_day = datetime.combine(date, datetime.min.time(), tzinfo=timezone.utc)
         end_of_day = datetime.combine(date, datetime.max.time(), tzinfo=timezone.utc)
 
-        # Initialize variables
         available_blocks = []
         current_time = start_of_day
 
-        # Iterate through the schedule
+        # iterate through schedule
         for event in schedule:
             start_time = datetime.fromisoformat(event["start_time"])
             end_time = datetime.fromisoformat(event["end_time"])
