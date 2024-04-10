@@ -6,71 +6,57 @@ from supabase import create_client, Client
 from datetime import datetime, timedelta
 
 
-def find_available_time_blocks(supabase: Client, class_id, date):
-
-    try:
-        # query database to get the schedule for the given date
-        response = supabase.table("events").select("start_time, end_time").eq("class_id", class_id).eq("date", date).order("start_time").execute()
 
 
-        schedule = response.data
+async def find_available_blocks(supabase: Client):
+    available_blocks = await supabase.table("timeblocks").select("*").eq("filled", False).execute()
+    return available_blocks.data
 
-        start_of_day = datetime.combine(date, datetime.min.time(), tzinfo=timezone.utc)
-        end_of_day = datetime.combine(date, datetime.max.time(), tzinfo=timezone.utc)
-
-        available_blocks = []
-        current_time = start_of_day
-
-        # iterate through schedule
-        for event in schedule:
-            start_time = datetime.fromisoformat(event["start_time"])
-            end_time = datetime.fromisoformat(event["end_time"])
-
-            # Check if there is a gap between the current time and the start of the next scheduled event
-            if start_time > current_time + timedelta(hours=1):
-                # Add the available time block to the list
-                available_blocks.append((current_time, current_time + timedelta(hours=1)))
-
-            # Update the current time to the end of the scheduled event
-            current_time = end_time
-
-        # check for available time block at the end of the day
-        if end_of_day > current_time + timedelta(hours=1):
-            available_blocks.append((current_time, current_time + timedelta(hours=1)))
-
-        return available_blocks
-
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return []
-
-
-
-def allocate_time_blocks(assignments):
-    # alloc TB based on: due date, priority, impact
-    # sort assignments by due date, priority (ascending), and impact (descending)
-    sorted_assignments = sorted(assignments, key=lambda x: (parse_datetime(x['due']), -int(x['priority']), -int(x['impact'])))
-
-    current_time = datetime.now()
-    tb_schedule = []
-
+# available_blocks and sorted_assignments
+# for each assignment find three 1-hr blocks, beginning 2 weeks before due date
+# check for conflicting blocks in "events" table
+# if no conflicts, add to "timeblocks" table and mapping table
+# if conflicts, find next available block
+async def allocate_time_blocks(sorted_assignments, available_blocks):
+    two_wks = timedelta(weeks=2)
     for assignment in sorted_assignments:
-        # assign number of time blocks based on impact
-        num_blocks = 3 if int(assignment['impact']) >= 10 else 2
-        
-        for _ in range(num_blocks):
-            # schedule each block 1 hour apart, starting from the current time
-            start_time = current_time
-            end_time = start_time + timedelta(hours=1)
-            schedule.append({
-                'assignment_uid': assignment['uid'],
-                'start': start_time,
-                'end': end_time
-            })
-            # update current time to the end of the last scheduled block
-            current_time = end_time
+        due_date = assignment['due']
+        starter_block = due_date - two_wks
+        allocated_blocks = []
 
-    return tb_schedule
+
+        for _ in range(3):
+            for block in available_blocks:
+                block_start = block['start']
+                if block_start >= starter_block and not is_block_confilcted(block, assignment['uid']):
+                    allocate_one_block(assignment['uid'], block_start, allocated_blocks)
+                    allocated_blocks.append(block)
+                    starter_block += block_start + timedelta(days=2)
+                    break
+
+
+async def is_block_confilcted(block, assignment_uid):
+    start = block['start']
+    end = block['end']
+    response = await supabase.table("events")\
+    .select("*").eq("class_id", assignment_uid)\
+    .gte("start_time", start)\
+    .lte("end_time", end)\
+    .execute()
+
+    return len(response.data) > 0
+
+
+async def allocate_one_block(assignment_uid, block_start, allocated_blocks):
+    await supabase.table("timeblocks")\
+    .update({"filled": True})\
+    .eq("start", block_start)\
+    .execute()
+
+    await supabase.table("timeblock_assignments")\
+    .insert({"assignment_uid": assignment_uid, "block_start": block_start})\
+    .execute()
+
 
 
 
@@ -79,7 +65,7 @@ if __name__ == "__main__":
     url = "https://fgocfoakntmlhgtftrzh.supabase.co"
     key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
     supabase: Client = create_client(url, key)
-    find_available_time_blocks(supabase, 4, )
+
 
 
 

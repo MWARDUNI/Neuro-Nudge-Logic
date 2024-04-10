@@ -77,9 +77,13 @@ def main():
     prioritized_assignments = assign_priority(categorized_assignments, prioritize_assignments)
 
     # print("\n========== EXAMS ==================================================\n")
-    # for exam in exams:
-    #     print(exam)
-    #     print("\n")
+    # for class_name, exam_types in exams.items():
+    #     print(f"\n{class_name}:")
+    #     for exam_type, exams in exam_types.items():
+    #         print(f"\n\t{exam_type}:")
+    #         for exam in exams:
+    #             print(f"\n\t\t{exam}")
+
 
     print("\n========== PRIORITIZED ASSIGNMENTS ==================================================\n")
     for class_name, assignment_types in prioritized_assignments.items():
@@ -104,31 +108,6 @@ def main():
             print(f"\n\t{assignment_type}:")
             for assignment in assignments:
                 print(f"\n\t\tassignment: {assignment}\tdue: {assignment['due']}\tpriority: {assignment['priority']}\timpact: {assignment['impact']}")
-
-
-
-
-
-
-
-
-    # assignments_copy =  assignments_with_impact.copy()
-
-    # print("\n========== COPY ASSIGNMENTS w/ IMPACT ==================================================\n")
-    # for class_name, assignment_types in assignments_copy.items():
-    #     for assignment_type, assignments in assignment_types.items():
-    #         for assignment in assignments:
-    #             print(assignment)
-    
-
-    # print("============================================================\n")
-    # print("Assignments with Impact:\n")
-    # for class_name, assignment_types in assignments_with_impact.items():
-    #     print(f"\n\n{class_name}:")
-    #     for assignment_type, assignments in assignment_types.items():
-    #         print(f"\n\t{assignment_type}:")
-    #         for assignment in assignments:
-    #             print(f"\n\t\t{assignment}")
 
 
 
