@@ -1,2 +1,4 @@
-    print("Prioritized Assignments:\n")
-    print(prioritized_assignments)
+    # print("\n========== EXAMS ==================================================\n")
+    # for exam in exams:
+    #     print(exam)
+    #     print("\n")
