@@ -86,8 +86,8 @@ def parse_ics(file_path):
 
 
 
-events, assignments = parse_ics('class_cal.ics')
-
+# events, assignments = parse_ics('class_cal.ics')
+events, assignments = parse_ics('all_in_one.ics')
 
 # make copies of events and assignments data by value.
 copy_events = copy.deepcopy(events)
