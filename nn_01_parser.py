@@ -3,9 +3,11 @@ from dateutil.rrule import *
 from dateutil.parser import parse
 import pytz
 import copy
+import pandas as pd
+from supabase import create_client, Client
 
-# list of dicts syntax
-# list[index][key] = value
+
+
 
 
 def parse_ics(file_path):
@@ -63,12 +65,12 @@ def parse_ics(file_path):
                         'category': event['category'],
                         'related-to': event['related-to'], # related event
                         'impact': event['impact'], # default impact value
-                        
                     }
                     assignments.append(assignment)
                     continue  # skip adding to events if it's an assignment
 
             events.append(event)
+
 
     # convert event/assignment dates to UTC timezone, if not None
     for event in events:
@@ -76,6 +78,7 @@ def parse_ics(file_path):
             event['start'] = event['start'].astimezone(pytz.utc)
         if event['end']:
             event['end'] = event['end'].astimezone(pytz.utc)
+
 
     for assignment in assignments:
         if assignment['due']:
@@ -85,36 +88,50 @@ def parse_ics(file_path):
 
 
 
-events, assignments = parse_ics('class_cal.ics')
-
-# make copies of events and assignments data by value.
-copy_events = copy.deepcopy(events)
-
-print("\n type of events: ")
-print(type(events))
-for event in copy_events:
-    print("\n")
-    # print the type(event) to see what type of object it is
-    print(type(event))
-
-copy_assignments = copy.deepcopy(assignments)
+# events, assignments = parse_ics('class_cal.ics')
+events, assignments = parse_ics('all_in_one.ics')
 
 
-print("\n")
-print("============================================================\n")
-print("Events:\n")
-print("\tThese are recurring events, such as classes, meetings, etc. that are time bounded.\n")
-for event in events:
-    print(event)
-    print("\n") 
 
 
-print("\n")
-print("============================================================\n")
-print("Assignments:\n")
-print("\tThese are tasks/todos with due dates.\n")
-for assignment in assignments:
-    print(assignment)
-    print("\n") 
+
+
+
+
+
+
+
+
+# # make copies of events and assignments data by value.
+# copy_events = copy.deepcopy(events)
+
+
+
+# print("\n type of events: ")
+# print(type(events))
+# for event in copy_events:
+#     print("\n")
+#     # print the type(event) to see what type of object it is
+#     print(type(event))
+
+# copy_assignments = copy.deepcopy(assignments)
+
+
+# print("\n")
+# print("============================================================\n")
+# print("Events:\n")
+# print("\tThese are recurring events, such as classes, meetings, etc. that are time bounded.\n")
+# for event in events:
+#     print(event)
+#     print("\n") 
+
+
+# print("\n")
+# print("============================================================\n")
+# print("Assignments:\n")
+# print("\tThese are tasks/todos with due dates.\n")
+# for assignment in assignments:
+#     print(assignment)
+#     print("\n") 
 
 
