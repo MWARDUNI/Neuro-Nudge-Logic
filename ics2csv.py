@@ -62,12 +62,10 @@ for component in cal.walk():
         # Check for all-day events
         event_data["isallday"] = isinstance(start, date) and not isinstance(start, datetime)
 
-        # Insert the event into the Supabase table
-        insert_response = supabase.table("appointments").insert(event_data).execute()
         events.append(event_data)
 
 
-
+insert_response = supabase.table("appointments").insert(events).execute()
 
 
 with open('events.csv', 'w', newline='') as file:
