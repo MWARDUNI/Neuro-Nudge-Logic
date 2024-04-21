@@ -26,15 +26,18 @@ class BlockFiller():
         
         # 1) Populate classes/events
         if fill_dict['events']:
-            self.populate_events()
+            self.block_off_events()
         
         # 2) 5 days study plans
         if fill_dict['tests']:
-            self.populate_tests()
+            self.block_off_single_events()
         
         # 3) fill in assignments
         if fill_dict['assignments']:
             self.populate_assignments()
+            
+        if fill_dict['reset']:
+            self.reset_tables()
         
         
         if self.conn is not None:
@@ -65,14 +68,15 @@ class BlockFiller():
         
         cur.close()
         
-    def populate_events(self):
+    def block_off_events(self):
         cur = self.conn.cursor()
         # days = {'SU':[], 'MO':[], 'TU':[], 'WE':[], 'TH':[], 'FR':[], 'SA':[]}
         day_key = {'SU':0, 'MO':1, 'TU':2, 'WE':3, 'TH':4, 'FR':5, 'SA':6}
         # days = [[] for _ in range(0,7)]
         # print(days)
         
-        sql = f"select uid, summary, start_time::date, EXTRACT(hour from start_time), EXTRACT(epoch from (end_time - start_time)) / 60,   vrecur from events where action = 'DISPLAY'"
+        sql = f"select uid, summary, start_time::date, EXTRACT(hour from start_time), EXTRACT(epoch from (end_time - start_time)) / 60,   vrecur from events \
+            where action = 'DISPLAY' and vrecur is not null"
         cur.execute(sql)
         events = unpack_cursor(cur)
         
@@ -100,7 +104,6 @@ class BlockFiller():
             # print(dows)
             
             #calculate class length and ceiling it
-            # (let's just block off sleeping)
             sql = f"UPDATE sched_days SET blocked = true FROM \
                 generate_series('{start_time}'::date, '{self.end_date}'::date, '1 day') AS ds(date), \
                 generate_series(0, {e_len - 1}) AS h(hour) \
@@ -115,10 +118,39 @@ class BlockFiller():
         
         cur.close()
         
-    def populate_tests(self):
+    def block_off_single_events(self):
         cur = self.conn.cursor()
+        # put in events with no recurrence
         
+        sql = f"select uid, summary, start_time::date, EXTRACT(hour from start_time), EXTRACT(epoch from (end_time - start_time)) / 60 from events \
+            where action = 'DISPLAY' and vrecur is null"
+        cur.execute(sql)
+        events = unpack_cursor(cur)
         
+        for event in events:
+            id = event[0]
+            name = event[1]
+            start_time = event[2]
+            start_hour = event[3]
+            minute_time = int(event[4])
+            
+            # ceiling to hours
+            e_len = minute_time // 60
+            e_len += 1 if (e_len % 60) > 0 else 0
+            
+            
+            
+            #calculate class length and ceiling it
+            sql = f"UPDATE sched_days SET blocked = true FROM \
+                generate_series('{start_time}'::date, '{self.end_date}'::date, '1 day') AS ds(date), \
+                generate_series(0, {e_len - 1}) AS h(hour) \
+                WHERE sched_days.local_date = date_trunc('day', ds.date + interval '{start_hour} hour' + interval '1 hour' * h.hour) \
+                AND sched_days.local_hour = EXTRACT(HOUR FROM ds.date + interval '{start_hour} hour' + interval '1 hour' * h.hour)"
+            print(sql, "\n")
+            cur.execute(sql)
+        # sql = f"update sched_days set blocked = false"
+        # cur.execute(sql)
+        self.conn.commit()
         
         
         cur.close()
@@ -151,7 +183,7 @@ class BlockFiller():
                 cur.execute(sql)
                 ass_date = ass_date - datetime.timedelta(days=2)
             
-                
+        self.conn.commit()       
                 
         
         sql = f"select assignment_id, due_date, chunk_no from chunks order by due_date desc" #might switch order?
@@ -160,7 +192,8 @@ class BlockFiller():
         # Go through chunks by due date desc and then block num desc
         # Assign chunk to alternating days (or just lower block number?)
         # chunks = []
-        for chunk in chunks:
+        for idx, chunk in enumerate(chunks):
+            print(f"Chunk {idx+1} of {len(chunks)}\r", end="")
             # sql = f"update chunk set start_time = (select coalesce(min(local_hour) from sched_days where blocked is false and local_date = '{chunk[1]}'), \
             #     min(local_hour) from sched_days where blocked is false and \
             #         local_date = (select max(local_date) from sched_days where blocked is false and local_date <= '{chunk[1]}') ), \
@@ -168,18 +201,33 @@ class BlockFiller():
             #     where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
             
             # change chunks to have days and hours separate to line up with sched_days?
-            sql = f"update chunks set start_time = coalesce( \
-                (select '{chunk[1]}' + interval '1 hour' * (select min(local_hour) from sched_days where blocked is false and local_date = '{chunk[1]}')), \
-                (select min(local_hour) from sched_days where blocked is false and \
-                    local_date = (select max(local_date) from sched_days where blocked is false and local_date <= '{chunk[1]}'))) , \
-                stop_time = (start_time + interval '1 hour') \
-                where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
+            #switch to select then update?
+            
+            # select and order by?? TODO: check this order by is right
+            sql = f"select local_hour, local_date from sched_days where blocked is false and local_date <= '{chunk[1]}' order by local_date desc, local_hour asc limit 1"
+            cur.execute(sql)
+            times = unpack_cursor(cur)
+            # sql = f"update chunks set start_time = coalesce( \
+            #     (select '{chunk[1]}'::timestamp + interval '1 hour' * (select min(local_hour) from sched_days where blocked is false and local_date = '{chunk[1]}')), \
+            #     (select min(local_hour) from sched_days where blocked is false and \
+            #         local_date = (select max(local_date) from sched_days where blocked is false and local_date <= '{chunk[1]}'))) , \
+            #     stop_time = (start_time + interval '1 hour') \
+            #     where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
+            # print(times, chunk[1])
+            # break
+            start_time = datetime.datetime.combine(times[1], datetime.time(hour=times[0]))
+            stop_time = start_time + datetime.timedelta(hours=1)
+            # print(start_time, stop_time)
+            # break
+            sql = f"update chunks set start_time = '{start_time}', end_time = '{stop_time}' where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
             cur.execute(sql)
                 
             # Also update sched_days to be blocked
+            # sql = f"update sched_days set blocked = true where \
+            #     local_date = (select due_date from chunks where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}) \
+            #         and local_time = (select start_time from chunks where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]})"
             sql = f"update sched_days set blocked = true where \
-                local_date = (select due_date from chunks where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}) \
-                    and local_time = (select start_time from chunks where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]})"
+                local_date = date_trunc('day', '{start_time}'::timestamp) and local_hour = {times[0]}"
             cur.execute(sql)
         
         # start = self.start_date
@@ -191,9 +239,17 @@ class BlockFiller():
             
         #     current = current - datetime.timedelta(days=1)
         
-        
+        self.conn.commit()
         
         # after assignment, update semester blocks??
+        cur.close()
+        
+        
+    def reset_tables(self):
+        cur = self.conn.cursor()
+        
+        
+        
         cur.close()
         
             
@@ -206,7 +262,7 @@ if __name__ == "__main__":
     
     supabase: Client = create_client(url, key)
     
-    to_fill = {"semester":False, "tests":False, "events":False, "assignments":True}
+    to_fill = {"semester":False, "tests":False, "events":False, "assignments":True, "reset":False}
     
     bf = BlockFiller(supabase, datetime.date.fromisoformat('2024-01-01'),datetime.date.fromisoformat('2024-06-01'))
     bf.main(to_fill)
