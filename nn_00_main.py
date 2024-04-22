@@ -9,11 +9,12 @@ from supabase import create_client, Client
 
 
 
-def main():
+def nn_main():
     
     from nn_01_parser import parse_ics
     from nn_02_categorizer import categorize_assignments
     from nn_03_prioritizer import add_impact, extract_exams, assign_priority, sort_prioritized_assignments, exams, prioritize_assignments
+    from nn_03_1_5day_study import create_study_plan
 
     # nn_01_parser.py
     events, assignments = parse_ics('all_in_one.ics')
@@ -30,13 +31,16 @@ def main():
     else:
         print("Error: One or more assignments are not in dictionary format.")
 
-    print("\n========== CATEGORIZED ASSIGNMENTS ==================================================\n")
-    for class_name, assignment_types in categorized_assignments.items():
-        print(f"\n{class_name}:")
-        for assignment_type, assignments in assignment_types.items():
-            print(f"\n\t{assignment_type}:")
-            for assignment in assignments:
-                print(f"\n\t\t{assignment}")
+    # print("\n========== CATEGORIZED ASSIGNMENTS ==================================================\n")
+    # for class_name, assignment_types in categorized_assignments.items():
+    #     print(f"\n{class_name}:")
+    #     for assignment_type, assignments in assignment_types.items():
+    #         print(f"\n\t{assignment_type}:")
+    #         for assignment in assignments:
+    #             print(f"\n\t\t{assignment}")
+                
+    # supabase.table("assignments").upsert(assignments).execute()
+    # supabase.table("events").upsert(events).execute()
 
 
     # df = pd.DataFrame(events)
@@ -59,13 +63,13 @@ def main():
     # nn_03_prioritizer.py
 
     assignments_with_impact = add_impact(categorized_assignments, grade_impact_key)
-    print("\n========== ASSIGNMENTS WITH IMPACT ==================================================\n")
-    for class_name, assignment_types in assignments_with_impact.items():
-        print(f"\n{class_name}:")
-        for assignment_type, assignments in assignment_types.items():
-            print(f"\n\t{assignment_type}:")
-            for assignment in assignments:
-                print(f"\n\t\timpact: {assignment['impact']}")
+    # print("\n========== ASSIGNMENTS WITH IMPACT ==================================================\n")
+    # for class_name, assignment_types in assignments_with_impact.items():
+    #     print(f"\n{class_name}:")
+    #     for assignment_type, assignments in assignment_types.items():
+    #         print(f"\n\t{assignment_type}:")
+    #         for assignment in assignments:
+    #             print(f"\n\t\timpact: {assignment['impact']}")
 
 
     exams = {}
@@ -85,13 +89,13 @@ def main():
     #             print(f"\n\t\t{exam}")
 
 
-    print("\n========== PRIORITIZED ASSIGNMENTS ==================================================\n")
-    for class_name, assignment_types in prioritized_assignments.items():
-        print(f"\n{class_name}:")
-        for assignment_type, assignments in assignment_types.items():
-            print(f"\n\t{assignment_type}:")
-            for assignment in assignments:
-                print(f"\n\tassignment: {assignment}\tpriority: {assignment['priority']}")
+    # print("\n========== PRIORITIZED ASSIGNMENTS ==================================================\n")
+    # for class_name, assignment_types in prioritized_assignments.items():
+    #     print(f"\n{class_name}:")
+    #     for assignment_type, assignments in assignment_types.items():
+    #         print(f"\n\t{assignment_type}:")
+    #         for assignment in assignments:
+    #             print(f"\n\tassignment: {assignment}\tpriority: {assignment['priority']}")
 
 
     sorted_assignments = {}
@@ -99,17 +103,33 @@ def main():
 
 
 
-    print("\n========== SORTED ASSIGNMENTS ==================================================\n")
-    for class_name, assignment_types in sorted_assignments.items():
-        # print class name
-        print(f"\n{class_name}:")
-        # print assignment type, due date, priority, and impact
-        for assignment_type, assignments in assignment_types.items():
-            print(f"\n\t{assignment_type}:")
-            for assignment in assignments:
-                print(f"\n\t\tassignment: {assignment}\tdue: {assignment['due']}\tpriority: {assignment['priority']}\timpact: {assignment['impact']}")
+    # print("\n========== SORTED ASSIGNMENTS ==================================================\n")
+    # for class_name, assignment_types in sorted_assignments.items():
+    #     # print class name
+    #     print(f"\n{class_name}:")
+    #     # print assignment type, due date, priority, and impact
+    #     for assignment_type, assignments in assignment_types.items():
+    #         print(f"\n\t{assignment_type}:")
+    #         for assignment in assignments:
+    #             print(f"\n\t\tassignment: {assignment}\tdue: {assignment['due']}\tpriority: {assignment['priority']}\timpact: {assignment['impact']}")
+                
+    print("\n\n\n\n")  
+    # assignments = prioritized_assignments
+    # print(sorted_assignments)
+    # print(events)
+    for assignment in assignments:
+        # print(assignment)
+        assignment['due'] = assignment['due'].isoformat()
+    for event in events:
+        # print(event)
+        event['start_time'] = event['start_time'].isoformat()
+        event['end_time'] = event['end_time'].isoformat()
+    supabase.table("assignments").upsert(assignments).execute()
+    supabase.table("events").upsert(events).execute()
+    
+    create_study_plan(supabase, "2024-01-01")
+    
 
 
-
-if __name__ == '__main__':
-    main()
+if __name__ == '__nn_main__':
+    nn_main()

@@ -22,9 +22,8 @@ def parse_ics(file_path):
             # init event dictionary w/ default vals
             event = {
                 'summary': str(component.get('summary', 'No summary provided')),                # title of event
-                'start': component.get('dtstart').dt if component.get('dtstart') else None,     # start time
-                'end': component.get('dtend').dt if component.get('dtend') else None,           # end time
-                'location': str(component.get('location', 'No location provided')),             # location of event
+                'start_time': component.get('dtstart').dt if component.get('dtstart') else None,     # start time
+                'end_time': component.get('dtend').dt if component.get('dtend') else None,           # end time
                 'description': str(component.get('description', 'No description provided')),    # details of event
                 'category': str(component.get('category', 'No category provided')),             # category for filtering
                 'status': str(component.get('status', 'No status provided')),                   # VEVENT: 'confirmed' [default], 'cancelled', 'tentative'  
@@ -33,12 +32,11 @@ def parse_ics(file_path):
                 'alarm': component.get('alarm'),                                                # reminder/alarm
                 'trigger': component.get('trigger'),                                            # trigger alarm
                 'action': str(component.get('action', 'DISPLAY')),                              # action for alarm
-                'related-to': str(component.get('related-to', 'TODO: via UID')),                # related to via uid                                              # related event via UID
                 'impact': component.get('impact', 0),                                           # impact on final grade
             }
 
             # if 'dtstart' or 'dtend' is None: TODO: adjust ics 
-            if event['start'] is None or event['end'] is None:
+            if event['start_time'] is None or event['end_time'] is None:
                 print(f"{event['summary']} is missing essential datetime information. Skipping.")
                 continue  
 
@@ -53,7 +51,7 @@ def parse_ics(file_path):
                     # assignments are VTODO components, not VEVENT
                     assignment = {
                         'class': event['summary'].split('-')[0].strip() if '-' in event['summary'] else 'Unknown',
-                        'due': event['end'],
+                        'due': event['end_time'],
                         'type': assignment_type,
                         'description': event['description'],
                         'status': str(component.get('status', 'NEEDS-ACTION')), # VTODO: 'NEEDS-ACTION' [default], 'COMPLETED', 'IN-PROCESS', 'CANCELLED'
@@ -63,7 +61,6 @@ def parse_ics(file_path):
                         'trigger': event['trigger'],
                         'action': event['action'],
                         'category': event['category'],
-                        'related-to': event['related-to'], # related event
                         'impact': event['impact'], # default impact value
                     }
                     assignments.append(assignment)
@@ -74,10 +71,10 @@ def parse_ics(file_path):
 
     # convert event/assignment dates to UTC timezone, if not None
     for event in events:
-        if event['start']:
-            event['start'] = event['start'].astimezone(pytz.utc)
-        if event['end']:
-            event['end'] = event['end'].astimezone(pytz.utc)
+        if event['start_time']:
+            event['start_time'] = event['start_time'].astimezone(pytz.utc)
+        if event['end_time']:
+            event['end_time'] = event['end_time'].astimezone(pytz.utc)
 
 
     for assignment in assignments:

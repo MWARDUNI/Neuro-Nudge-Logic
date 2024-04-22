@@ -1,21 +1,13 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from supabase import create_client, Client
-from nn_01_parser import parse_ics
-import json
+import uvicorn, datetime
+from fill_blocks import BlockFiller
+from nn_00_main import nn_main
 
 # CMD TO RUN: uvicorn main:app --reload
 
 app = FastAPI()
-# Initialize the Supabase client
-# url = "https://fgocfoakntmlhgtftrzh.supabase.co"
-# key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnb2Nmb2FrbnRtbGhndGZ0cnpoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2ODkyMTUsImV4cCI6MjAyNzI2NTIxNX0.s5dAWy-DSa1EBfKjhpGOOcax6S7QUsh7xCHPFgKlBn8"
-# supabase: Client = create_client(url, key)
 
-# class CalendarJson(BaseModel):
-#     data: list
-
-
+ICS_FILE = "all_in_one"
 
 @app.get("/")
 async def root():
@@ -23,10 +15,16 @@ async def root():
 
 @app.get("/load-ics")
 async def get_ics():
-    return parse_ics("class_cal.ics")
+    nn_main()
+    
+    
+    to_fill = {"semester":True, "tests":True, "events":True, "assignments":True, "reset":False}
+    
+    bf = BlockFiller(datetime.date.fromisoformat('2024-01-01'),datetime.date.fromisoformat('2024-06-01'))
+    bf.main(to_fill)
+    
+    return "Success"
 
-# @app.get("/load-calendar")
-# async def load_ics(cal: CalendarJson):
-#     for row in cal.data:
-#         print(row)
-#     return
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

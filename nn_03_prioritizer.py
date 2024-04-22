@@ -52,7 +52,7 @@ def assign_priority(categorized_assignments, prioritize_assignments):
                 # calculate the number of days between today and the due date
                 due_date = assignment['due'].date()
                 days_until_due = (due_date - today).days
-                print(f"\ndays_until_due: {days_until_due}\n")
+                # print(f"\ndays_until_due: {days_until_due}\n")
                 # normalize the number of days to a value between 1 and 9
                 normalized_days = 9 - min(max((days_until_due // 7), 1), 9)
 
