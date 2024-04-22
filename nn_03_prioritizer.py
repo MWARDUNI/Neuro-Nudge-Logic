@@ -1,6 +1,7 @@
 
 from datetime import datetime
-
+from typing import List, Dict, Tuple
+import copy 
 
 # Impacts on final grade for EACH assignment type
 grade_impact_key = {
@@ -15,7 +16,7 @@ grade_impact_key = {
 }
 
 
-def calculate_impact(categorized_assignments, grade_impact_key):
+def add_impact(categorized_assignments, grade_impact_key) -> Dict[str, Dict[str, List[Dict]]]:
     for class_name, assignment_types in categorized_assignments.items():
         class_impact = grade_impact_key.get(class_name, {})
         for assignment_type, assignments in assignment_types.items():
@@ -23,35 +24,61 @@ def calculate_impact(categorized_assignments, grade_impact_key):
             for assignment in assignments:
                 # add the impact
                 assignment['impact'] = impact
-                # set status to required "VTODO" property
-                assignment['status'] = 'NEEDS-ACTION'
     return categorized_assignments
+
 
 
 exams = {}
 
-
-
-# def extract_exams(categorized_assignments):
-#     for course, tasks in categorized_assignments.items():
-#         for task_type, details in list(tasks.items()):
-#             if task_type in ["midterm", "final"]:
-#                 if course not in exams:
-#                     exams[course] = {}
-#                 exams[course][task_type] = details
-#                 del categorized_assignments[course][task_type]
-#     return exams
+def extract_exams(categorized_assignments, exams) -> Tuple[Dict[str, Dict[str, List[Dict]]], Dict[str, Dict[str, List[Dict]]]]:
+    for course, tasks in categorized_assignments.items():
+        for task_type, details in list(tasks.items()):
+            if task_type in ["midterm", "final"]:
+                if course not in exams:
+                    exams[course] = {}
+                exams[course][task_type] = details
+                del categorized_assignments[course][task_type]
+    return exams, categorized_assignments
 
 
 
-# def prioritize_assignments(assignments):
+prioritize_assignments = {}
 
-#     today = datetime.today().date()
+def assign_priority(categorized_assignments, prioritize_assignments):
+    today = datetime.today().date()
+    for class_name, assignment_types in categorized_assignments.items():
+        for assignment_type, assignments in assignment_types.items():
+            for assignment in assignments:
+                # calculate the number of days between today and the due date
+                due_date = assignment['due'].date()
+                days_until_due = (due_date - today).days
+                # print(f"\ndays_until_due: {days_until_due}\n")
+                # normalize the number of days to a value between 1 and 9
+                normalized_days = 9 - min(max((days_until_due // 7), 1), 9)
 
-#     assignments_flat = [item for sublist in assignments.values() for subsublist in sublist.values() for item in subsublist]
+                # normalize the impact to a value between 1 and 9
+                impact = assignment['impact']
+                normalized_impact = 9 - min(max((impact // 11), 1), 9)
 
-#     # if 'due_date' is a datetime object and use it directly
-#     assignments_flat.sort(key=lambda x: (x['due'].date() - today, -x.get('impact', 0)))
+                # calculate the priority as the average of the normalized values
+                priority = (normalized_days + normalized_impact) // 2
 
-#     return assignments_flat
+                # assign the priority to the assignment
+                assignment['priority'] = priority
+
+    prioritize_assignments = copy.deepcopy(categorized_assignments)
+
+    return prioritize_assignments # now have priority
+
+
+
+def sort_prioritized_assignments(input_assignments):
+    today = datetime.today().date()
+    # Deep copy the input to avoid modifying the original data
+    assignments_copy = copy.deepcopy(input_assignments)
+    for category, subcategories in assignments_copy.items():
+        for subcategory, assignment_list in subcategories.items():
+            # Sort in place each list of assignments within their respective subcategory
+            assignment_list.sort(key=lambda x: (x['due'].date() - today, -x.get('priority', 0), -x.get('impact', 0)))
+    return assignments_copy
 
