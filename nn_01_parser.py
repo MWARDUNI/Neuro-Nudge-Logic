@@ -34,6 +34,8 @@ def parse_ics(file_path):
                 'action': str(component.get('action', 'DISPLAY')),                              # action for alarm
                 'impact': component.get('impact', 0),                                           # impact on final grade
             }
+            if "<br>" in event['description']:
+                event['description'] = event['description'].split('<br>')[0]
 
             # if 'dtstart' or 'dtend' is None: TODO: adjust ics 
             if event['start_time'] is None or event['end_time'] is None:
