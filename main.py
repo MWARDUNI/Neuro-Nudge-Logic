@@ -26,7 +26,7 @@ class NewEvent(BaseModel):
     end_time: str
     isAllDay: bool | None = False
     recurrence: str
-    id: str
+    id: int
     eventType: str
 
 @app.get("/")
