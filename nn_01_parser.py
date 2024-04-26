@@ -1,7 +1,7 @@
 from icalendar import Calendar
 from dateutil.rrule import *
 from dateutil.parser import parse
-import pytz
+import pytz, json
 import copy
 import pandas as pd
 from supabase import create_client, Client
@@ -41,7 +41,20 @@ def parse_ics(file_path):
                 continue  
 
             if component.get('rrule'):
-                event['recurrence'] = str(component.get('rrule'))
+                rrule = component.get('rrule')
+                if rrule.get('UNTIL'):
+                    rrule['UNTIL'] = [x.isoformat() for x in rrule.get('UNTIL')]
+                
+                rrule = str(rrule).removeprefix("vRecur(")[:-1]
+                # FREQ=WEEKLY;WKST=SU;UNTIL=2024-05-10T05:59:59+00:00;BYDAY=MO,WE
+                rrule = rrule.replace("{", "").replace("}", "").replace("[", "").replace("]", "")
+                rrule = rrule.replace(":", "=").replace(",", ";").replace("'", "").replace(" ", "")
+                if "BYDAY" in rrule:
+                    temp = rrule.split("BYDAY")
+                    temp[1] = temp[1].replace(";", ",")
+                    rrule = "BYDAY".join(temp)
+                
+                event['recurrence'] = rrule
             else:
                 keywords = ['homework', 'project', 'quiz', 'midterm', 'final', 'lab', 'HW', 'hw']
                 if any(keyword in event['summary'].lower() for keyword in keywords) or \

@@ -13,7 +13,8 @@ import uuid
 def create_study_plan(supabase: Client, start_date=None):
     
     if start_date is None:
-        start_date = datetime.now()
+        # start_date = datetime.now()
+        start_date = datetime.fromisoformat('2024-01-01')
 
     chunks = ["A", "B", "C", "D"]
 
@@ -32,7 +33,7 @@ def create_study_plan(supabase: Client, start_date=None):
 
     try:
         # get all midterm and final assignments
-        response = supabase.table("assignments").select("*").in_("type", ["final", "midterm"]).order("due").execute()
+        response = supabase.table("assignments").select("*").in_("type", ["final", "midterm"]).eq("scheduled", False).order("due").execute()
 
         prioritized_assignments = response.data
         
@@ -82,7 +83,9 @@ def create_study_plan(supabase: Client, start_date=None):
                                 'description': f'{day_name}: {task_name} - {assignment_type}',
                                 'start_time': last_time.isoformat(),
                                 'end_time': next_time.isoformat(),
-                                'impact': assignment['impact']
+                                'impact': assignment['impact'],
+                                'action': 'DISPLAY',
+                                'trigger':assignment['uid']
                             })
                             last_time = next_time
 
