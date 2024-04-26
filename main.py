@@ -26,7 +26,7 @@ class NewEvent(BaseModel):
     end_time: str
     isAllDay: bool | None = False
     recurrence: str
-    id: str
+    id: int
     eventType: str
 
 @app.get("/")
@@ -53,6 +53,10 @@ async def add_event(event: NewEvent):
     bf.add_single_event(testing)
     return testing
 
+@app.get("/reset-supabase")
+async def reset_supa():
+    to_fill = {"semester":False, "tests":False, "events":False, "assignments":False, "reset":True}
+    bf.main(to_fill)
 
 if __name__ == "__main__":
     uvicorn.run(app, port=5080)

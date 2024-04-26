@@ -19,6 +19,7 @@ class BlockFiller():
         self.supabase = supabase
         
         def close():
+            print("closing connection.")
             self.conn.close()
             
         atexit.register(close)
@@ -162,10 +163,11 @@ class BlockFiller():
         # Extract hour for ordering purposes (?)
         sql = f"select date_trunc('day', due) as day, description, uid, EXTRACT(HOUR FROM due) as hour from assignments where \
             (type = 'hw' or type = 'lab') AND due BETWEEN '{self.start_date}'::timestamp AND '{self.end_date}'::timestamp \
-            order by hour asc, day desc"
+            and scheduled is false order by hour asc, day desc"
         cur.execute(sql)
         ass = unpack_cursor(cur)
-        
+        if isinstance(ass, list) and not isinstance(ass[0], list):
+            ass = [ass]
         for a in ass:
             ass_date = a[0]
             description = a[1]
@@ -245,7 +247,7 @@ class BlockFiller():
             ini_dict['akash'] = ini_dict.pop('akshat')
         """
         
-        if e['recurrence'] == "null" or e['recurrence'] is None:
+        if e['recurrence'] == "null" and e['eventType'] in ['midterm', 'final']:
             sql = f"insert into assignments(class, due, type, description, uid, action, impact) \
                 values ('{e['summary']}', '{e['end_time']}', '{e['eventType']}', '{e['description']}', \
                     '{uuid.uuid4()}@nn.com', 'DISPLAY', 0)"
@@ -317,6 +319,16 @@ class BlockFiller():
                 sql = f"update sched_days set blocked = true where \
                     local_date = date_trunc('day', '{start_time}'::timestamp) and local_hour = {times[0]}"
                 cur.execute(sql)       
+        
+        if e['eventType'] in ['hw', 'lab']:
+            sql = f"insert into assignments(class, due, type, description, uid, action, impact) \
+                values ('{e['summary']}', '{e['end_time']}', '{e['eventType']}', '{e['description']}', \
+                    '{uuid.uuid4()}@nn.com', 'DISPLAY', 0)"
+            cur.execute(sql)
+            self.conn.commit()
+            
+            self.populate_assignments()
+        
             
         else:
             pass
