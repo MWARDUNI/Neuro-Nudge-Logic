@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 import json
 
 # CMD TO RUN: uvicorn main:app --reload
-# uvicorn --port 5080 main:app --reload
+# uvicorn --port 8000 --host 0.0.0.0 main:app --reload
 
 app = FastAPI()
 

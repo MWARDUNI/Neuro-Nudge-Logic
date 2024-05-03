@@ -156,12 +156,12 @@ class BlockFiller():
         
         cur.close()
     
-    def populate_assignments(self):
+    def populate_assignments(self, color=None):
         cur = self.conn.cursor()
         
         # Get all assignments by due date desc
         # Extract hour for ordering purposes (?)
-        sql = f"select date_trunc('day', due) as day, description, uid, EXTRACT(HOUR FROM due) as hour from assignments where \
+        sql = f"select date_trunc('day', due) as day, display_name, uid, EXTRACT(HOUR FROM due) as hour from assignments where \
             (type = 'hw' or type = 'lab') AND due BETWEEN '{self.start_date}'::timestamp AND '{self.end_date}'::timestamp \
             and scheduled is false order by hour asc, day desc"
         cur.execute(sql)
@@ -175,7 +175,10 @@ class BlockFiller():
             
             # Break assignments into chucks/blocks
             for i in range(NUM_OF_CHUNKS, 0, -1):
-                sql = f"insert into chunks(assignment_id, due_date, chunk_no, summary) values('{id}', '{ass_date}', {i}, '{description}')"
+                if color is not None:
+                    sql = f"insert into chunks(assignment_id, due_date, chunk_no, summary, color) values('{id}', '{ass_date}', {i}, '{description}', '{color}')"
+                else:
+                    sql = f"insert into chunks(assignment_id, due_date, chunk_no, summary) values('{id}', '{ass_date}', {i}, '{description}')"
                 cur.execute(sql)
                 ass_date = ass_date - datetime.timedelta(days=2)
             sql = f"update assignments set scheduled = true where uid = '{id}'"
@@ -184,7 +187,7 @@ class BlockFiller():
         self.conn.commit()       
                 
         
-        sql = f"select assignment_id, due_date, chunk_no from chunks where scheduled is false order by due_date desc" #might switch order?
+        sql = f"select assignment_id, due_date, chunk_no, summary from chunks where scheduled is false order by due_date desc" #might switch order?
         cur.execute(sql)
         chunks = unpack_cursor(cur)
         # Go through chunks by due date desc and then block num desc
@@ -200,7 +203,10 @@ class BlockFiller():
             start_time = datetime.datetime.combine(times[1], datetime.time(hour=times[0]))
             stop_time = start_time + datetime.timedelta(hours=1)
             
-            sql = f"update chunks set start_time = '{start_time}', end_time = '{stop_time}', scheduled = true where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
+            dname = f"{chunk[3]} - chunk {chunk[2]}"
+            
+            sql = f"update chunks set start_time = '{start_time}', end_time = '{stop_time}', scheduled = true, \
+                display_name = '{dname}' where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
             cur.execute(sql)
                 
             # Also update sched_days to be blocked
@@ -296,7 +302,7 @@ class BlockFiller():
             
             
             # insert into sched days (try on conflict w/ returning??)
-            sql = f"select assignment_id, due_date, chunk_no from chunks where scheduled is false order by due_date desc" #might switch order?
+            sql = f"select assignment_id, due_date, chunk_no, summary from chunks where scheduled is false order by due_date desc" #might switch order?
             cur.execute(sql)
             chunks = unpack_cursor(cur)
             # Go through chunks by due date desc and then block num desc
@@ -312,7 +318,10 @@ class BlockFiller():
                 start_time = datetime.datetime.combine(times[1], datetime.time(hour=times[0]))
                 stop_time = start_time + datetime.timedelta(hours=1)
                 
-                sql = f"update chunks set start_time = '{start_time}', end_time = '{stop_time}', scheduled = true where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
+                dname = f"{chunk[3]} - chunk {chunk[2]}"
+                
+                sql = f"update chunks set start_time = '{start_time}', end_time = '{stop_time}', scheduled = true, \
+                    display_name = '{dname}', color = '800080' where assignment_id = '{chunk[0]}' and chunk_no = {chunk[2]}"
                 cur.execute(sql)
                     
                 # Also update sched_days to be blocked
@@ -327,7 +336,7 @@ class BlockFiller():
             cur.execute(sql)
             self.conn.commit()
             
-            self.populate_assignments()
+            self.populate_assignments(color="800080")
         
             
         else:

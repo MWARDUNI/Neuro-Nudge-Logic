@@ -76,16 +76,18 @@ def create_study_plan(supabase: Client, start_date=None):
                             cal.add_component(event)
                             
                             next_time = (last_time + timedelta(minutes=duration_mins))
+                            desc = f'{day_name}: {task_name} - {assignment_type}'
                             # add study plan event to the list
                             study_plan_events.append({
                                 'uid': str(uuid.uuid4()),
                                 'summary': class_name,
-                                'description': f'{day_name}: {task_name} - {assignment_type}',
+                                'description': desc,
                                 'start_time': last_time.isoformat(),
                                 'end_time': next_time.isoformat(),
                                 'impact': assignment['impact'],
                                 'action': 'DISPLAY',
-                                'trigger':assignment['uid']
+                                'trigger':assignment['uid'],
+                                'display_name':f"{class_name} - {desc}"
                             })
                             last_time = next_time
 

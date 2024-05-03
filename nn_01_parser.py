@@ -33,7 +33,12 @@ def parse_ics(file_path):
                 'trigger': component.get('trigger'),                                            # trigger alarm
                 'action': str(component.get('action', 'DISPLAY')),                              # action for alarm
                 'impact': component.get('impact', 0),                                           # impact on final grade
+                'display_name': str(component.get('summary', 'No summary provided')),
+                'color' : "ffa500"
             }
+            
+            if "lunch" in event['summary'].lower():
+                event['color'] = "008080"
             if "<br>" in event['description']:
                 event['description'] = event['description'].split('<br>')[0]
 
@@ -77,6 +82,7 @@ def parse_ics(file_path):
                         'action': event['action'],
                         'category': event['category'],
                         'impact': event['impact'], # default impact value
+                        'display_name': event['summary']
                     }
                     assignments.append(assignment)
                     continue  # skip adding to events if it's an assignment
