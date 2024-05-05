@@ -253,10 +253,10 @@ class BlockFiller():
             ini_dict['akash'] = ini_dict.pop('akshat')
         """
         
-        if e['recurrence'] == "null" and e['eventType'] in ['midterm', 'final']:
-            sql = f"insert into assignments(class, due, type, description, uid, action, impact) \
+        if (e['recurrence'] == "null" or e['recurrence'] == "None") and e['eventType'] in ['midterm', 'final']:
+            sql = f"insert into assignments(class, due, type, description, uid, action, impact, display_name) \
                 values ('{e['summary']}', '{e['end_time']}', '{e['eventType']}', '{e['description']}', \
-                    '{uuid.uuid4()}@nn.com', 'DISPLAY', 0)"
+                    '{uuid.uuid4()}@nn.com', 'DISPLAY', 0, '{e['summary']}')"
             cur.execute(sql)
             self.conn.commit()
             # insert into assignments
@@ -330,9 +330,9 @@ class BlockFiller():
                 cur.execute(sql)       
         
         if e['eventType'] in ['hw', 'lab']:
-            sql = f"insert into assignments(class, due, type, description, uid, action, impact) \
+            sql = f"insert into assignments(class, due, type, description, uid, action, impact, display_name) \
                 values ('{e['summary']}', '{e['end_time']}', '{e['eventType']}', '{e['description']}', \
-                    '{uuid.uuid4()}@nn.com', 'DISPLAY', 0)"
+                    '{uuid.uuid4()}@nn.com', 'DISPLAY', 0, '{e['summary']}')"
             cur.execute(sql)
             self.conn.commit()
             
