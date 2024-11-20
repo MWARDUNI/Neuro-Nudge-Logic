@@ -16,7 +16,7 @@ grade_impact_key = {
 }
 
 
-def add_impact(categorized_assignments, grade_impact_key) -> Dict[str, Dict[str, List[Dict]]]:
+def add_impact(categorized_assignments, grade_impact_key):
     for class_name, assignment_types in categorized_assignments.items():
         class_impact = grade_impact_key.get(class_name, {})
         for assignment_type, assignments in assignment_types.items():
@@ -30,7 +30,7 @@ def add_impact(categorized_assignments, grade_impact_key) -> Dict[str, Dict[str,
 
 exams = {}
 
-def extract_exams(categorized_assignments, exams) -> Tuple[Dict[str, Dict[str, List[Dict]]], Dict[str, Dict[str, List[Dict]]]]:
+def extract_exams(categorized_assignments, exams):
     for course, tasks in categorized_assignments.items():
         for task_type, details in list(tasks.items()):
             if task_type in ["midterm", "final"]:
